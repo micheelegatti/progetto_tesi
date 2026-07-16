@@ -12,6 +12,10 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     //rotta dal login alla home/dashboard
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+    //rotte per caricamento VUE della dashboard
+    Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
+    Route:get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])
 });
 
 require __DIR__.'/settings.php';
