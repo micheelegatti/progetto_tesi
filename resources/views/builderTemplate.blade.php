@@ -1,7 +1,7 @@
-@extends('default')
+@extends('app')
 
 @section('content')
-    <div id="app">
+    <div id="app" class="h-[calc(100vh-4rem)] -m-6 md:-m-8 overflow-hidden">
         <editor></editor>
     </div>
 @endsection

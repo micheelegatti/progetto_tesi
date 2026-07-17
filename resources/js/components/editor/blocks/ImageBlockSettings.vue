@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Block } from '@/types/block'
 import axios from 'axios'
-import MediaLibrary from '@/components/editor/MediaLibrary.vue'
 
 const showMediaLibrary = ref(false)
 

@@ -1,34 +1,94 @@
-import { createInertiaApp } from '@inertiajs/vue3';
+// resources/js/app.ts
+import { createApp } from 'vue';
 import { initializeTheme } from '@/composables/useAppearance';
-import AppLayout from '@/layouts/AppLayout.vue';
-import AuthLayout from '@/layouts/AuthLayout.vue';
-import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
-import Editor from './component/editor/Editor.vue'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+//Configurazioni PrimeVue
+import PrimeVue from 'primevue/config';
+import Aura from '@primeuix/themes/aura';
+import ToastService from 'primevue/toastservice';
 
-createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
-    layout: (name) => {
-        switch (true) {
-            case name === 'Welcome':
-                return null;
-            case name.startsWith('auth/'):
-                return AuthLayout;
-            case name.startsWith('settings/'):
-                return [AppLayout, SettingsLayout];
-            default:
-                return AppLayout;
-        }
-    },
-    progress: {
-        color: '#4B5563',
-    },
-});
+// Import componenti Vue
+import Editor from './components/editor/Editor.vue';
+import CanvasEditor from './components/editor/CanvasEditor.vue';
+import SettingsPanelEditor from './components/editor/SettingsPanelEditor.vue';
+import SidebarEditor from './components/editor/SidebarEditor.vue';
 
-// This will set light / dark mode on page load...
-initializeTheme();
+import ButtonBlock from './components/editor/blocks/ButtonBlock.vue';
+import ButtonBlockSettings from './components/editor/blocks/ButtonBlockSettings.vue';
+import ContainerBlock from './components/editor/blocks/ContainerBlock.vue';
+import ContainerBlockSettings from './components/editor/blocks/ContainerBlockSettings.vue';
+import DividerBlock from './components/editor/blocks/DividerBlock.vue';
+import DividerBlockSettings from './components/editor/blocks/DividerBlockSettings.vue';
+import GridBlock from './components/editor/blocks/GridBlock.vue';
+import GridBlockSettings from './components/editor/blocks/GridBlockSettings.vue';
+import ImageBlock from './components/editor/blocks/ImageBlock.vue';
+import ImageBlockSettings from './components/editor/blocks/ImageBlockSettings.vue';
+import TextBlock from './components/editor/blocks/TextBlock.vue';
+import TextBlockSettings from './components/editor/blocks/TextBlockSettings.vue';
+import TitleBlock from './components/editor/blocks/TitleBlock.vue';
+import TitleBlockSettings from './components/editor/blocks/TitleBlockSettings.vue';
 
-// This will listen for flash toast data from the server...
-initializeFlashToast();
+
+
+/* Se vuoi usare i componenti PrimeVue direttamente dentro i file Blade:
+import Button from 'primevue/button';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+*/
+
+// Inizializzazioni grafiche globali dello Starter Kit (Dark Mode)
+if (typeof window !== 'undefined') {
+    initializeTheme();
+    initializeFlashToast();
+}
+
+//Creazione, dichiarazione e mount componenti
+if (typeof document !== 'undefined') {
+    const rootEl = document.querySelector('#app-root');
+
+    if (rootEl) {
+        // Creiamo l'istanza vuota (il guscio globale per Blade)
+        const app = createApp({});
+
+        // Attiviamo PrimeVue e i suoi servizi
+        app.use(PrimeVue, {
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: '.dark', // Sincronizzato con la classe dark del tuo Blade
+                }
+            }
+        });
+        app.use(ToastService);
+
+        // dichiarazionee delle componenti
+        app.component('editor', Editor);
+        app.component('canvasEditor', CanvasEditor);
+        app.component('settingsPanelEditor', SettingsPanelEditor);
+        app.component('sidebarEditor', SidebarEditor);
+
+        app.component('buttonBlock', ButtonBlock);
+        app.component('buttonBlockSettings', ButtonBlockSettings);
+        app.component('containerBlock', ContainerBlock);
+        app.component('containerBlockSettings', ContainerBlockSettings);
+        app.component('dividerBlock', DividerBlock);
+        app.component('dividerBlockSettings', DividerBlockSettings);
+        app.component('gridBlock', GridBlock);
+        app.component('gridBlockSettings', GridBlockSettings);
+        app.component('imageBlock', ImageBlock);
+        app.component('imageBlockSettings', ImageBlockSettings);
+        app.component('textBlock', TextBlock);
+        app.component('textBlockSettings', TextBlockSettings);
+        app.component('titleBlock', TitleBlock);
+        app.component('titleBlockSettings', TitleBlockSettings);
+
+        /* Registrazione dei componenti PrimeVue da usare nel Blade
+        app.component('p-button', Button);
+        app.component('p-datatable', DataTable);
+        app.component('p-column', Column);
+        */
+
+        app.mount(rootEl);
+    }
+}

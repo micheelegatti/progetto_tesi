@@ -7,25 +7,25 @@ use App\Http\Requests\Settings\PasswordUpdateRequest;
 use App\Http\Requests\Settings\TwoFactorAuthenticationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rules\Password;
-use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\View\View; // <-- Importa la View di Blade
 
 class SecurityController extends Controller
 {
     /**
-     * Show the user's security settings page.
+     * Mostra la pagina della sicurezza (Blade).
      */
-    public function edit(TwoFactorAuthenticationRequest $request): Response
+    public function edit(TwoFactorAuthenticationRequest $request): View
     {
         $props = [
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
         ];
 
-        return Inertia::render('settings/Security', $props);
+        // Ritorna la vista Blade situata in resources/views/settings/security.blade.php
+        return view('settings.security', $props);
     }
 
     /**
-     * Update the user's password.
+     * Aggiorna la password dell'utente.
      */
     public function update(PasswordUpdateRequest $request): RedirectResponse
     {
@@ -33,8 +33,10 @@ class SecurityController extends Controller
             'password' => $request->password,
         ]);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Password updated.')]);
-
-        return back();
+        // Sostituito Inertia::flash con il flash session nativo
+        return back()->with('toast', [
+            'type' => 'success', 
+            'message' => __('Password updated.')
+        ]);
     }
 }

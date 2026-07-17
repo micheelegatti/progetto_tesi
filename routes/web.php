@@ -2,18 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
-//mi passa al login se c'è bisogno
+//SOVRASCRIVIAMO IL LOGIN: Forza Laravel a mostrare la vista Blade invece di Inertia
+Route::get('login', function () {
+    return view('auth.login'); // Cercherà resources/views/auth/login.blade.php
+})->name('login');
+
+// Mi passa al login se c'è bisogno
 Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
 
-//ROTTE PRIVATE
+// ROTTE PRIVATE
 Route::middleware(['auth', 'verified'])->group(function () {
-    //rotta dal login alla home/dashboard
+    // rotta dal login alla home/dashboard
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-    //rotte per caricamento VUE della dashboard
+    // rotte per caricamento VUE della dashboard
     Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
     Route::get('dashboard/template/crea', [App\Http\Controllers\TemplateController::class, 'nuovoTemplate']);
