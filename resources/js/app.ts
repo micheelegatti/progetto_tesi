@@ -28,7 +28,7 @@ import TextBlock from './components/editor/blocks/TextBlock.vue';
 import TextBlockSettings from './components/editor/blocks/TextBlockSettings.vue';
 import TitleBlock from './components/editor/blocks/TitleBlock.vue';
 import TitleBlockSettings from './components/editor/blocks/TitleBlockSettings.vue';
-
+import HeaderBlock from './components/editor/blocks/ContainerBlock.vue';
 
 
 /* Se vuoi usare i componenti PrimeVue direttamente dentro i file Blade:
@@ -82,6 +82,7 @@ if (typeof document !== 'undefined') {
         app.component('textBlockSettings', TextBlockSettings);
         app.component('titleBlock', TitleBlock);
         app.component('titleBlockSettings', TitleBlockSettings);
+        app.component('headerBlock', TitleBlockSettings);
 
         /* Registrazione dei componenti PrimeVue da usare nel Blade
         app.component('p-button', Button);

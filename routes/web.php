@@ -22,6 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
     Route::get('dashboard/template/crea', [App\Http\Controllers\TemplateController::class, 'nuovoTemplate']);
+    Route::post('dashboard/template/salva', [App\Http\Controllers\TemplateController::class, 'store']);
+    Route::post('dashboard/template/aggiorna', [App\Http\Controllers\TemplateController::class, 'update']);
 });
 
 require __DIR__.'/settings.php';

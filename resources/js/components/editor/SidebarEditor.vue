@@ -4,6 +4,9 @@ import type { Block } from '@/types/block'
 //definisco i blocchi di tipo layout
 const layoutBlocks = [
     { type: 'container', label: 'Contenitore' },
+    { type: 'header', label: 'Header' },
+    { type: 'footer', label: 'Footer' },
+    { type: 'section', label: 'Section' },
     { type: 'grid',      label: 'Griglia' },
 ] as const
 

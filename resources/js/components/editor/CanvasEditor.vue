@@ -9,6 +9,9 @@ import ButtonBlock    from '@/components/editor/blocks/ButtonBlock.vue'
 import DividerBlock   from '@/components/editor/blocks/DividerBlock.vue'
 import ContainerBlock from '@/components/editor/blocks/ContainerBlock.vue'
 import GridBlock      from '@/components/editor/blocks/GridBlock.vue'
+import HeaderBlock      from '@/components/editor/blocks/HeaderBlock.vue'
+import FooterBlock      from '@/components/editor/blocks/FooterBlock.vue'
+import SectionBlock      from '@/components/editor/blocks/SectionBlock.vue'
 
 const props = defineProps<{
     blocks: Block[]
@@ -37,6 +40,9 @@ const componentMap: Record<Block['type'], any> = {
     button:    ButtonBlock,
     divider:   DividerBlock,
     container: ContainerBlock,
+    header:    HeaderBlock,
+    footer:    FooterBlock,
+    section:   SectionBlock,
     grid:      GridBlock,
 }
 

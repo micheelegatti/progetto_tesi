@@ -1,6 +1,6 @@
 export interface Block {
     id: number
-    type: 'title' | 'text' | 'image' | 'button' | 'divider' | 'container' | 'grid'
+    type: 'title' | 'text' | 'image' | 'button' | 'divider' | 'container' | 'header' | 'footer' | 'section' | 'grid'
     //Oggetto che contiene informazioni specifiche per ogni tipo di blocco (es. testo, immagine, ecc.)
     props?:{
         text?: string

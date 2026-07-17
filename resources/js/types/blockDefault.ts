@@ -172,6 +172,87 @@ export const blockDefaults: Record<Block['type'], Block> = {
         children: [],
     },
 
+    header: {
+        id: 0,
+        type: 'header',
+        style: {
+            backgroundColor: '#FFFF',
+            border: {
+                width: 0,     // px
+                style: 'dashed',
+                color: '#d1d5db', 
+                radius: 8,    // px
+            },
+            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
+            minHeight: 10,   // %
+            width: 100,
+        },
+        layout: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',     
+            justifyContent: 'center',
+            gap: 10,    //px
+            flexWrap: 'nowrap'
+        },
+        children: [],
+    },
+
+    footer: {
+        id: 0,
+        type: 'header',
+        style: {
+            backgroundColor: '#FFFF',
+            border: {
+                width: 0,     // px
+                style: 'dashed',
+                color: '#d1d5db', 
+                radius: 8,    // px
+            },
+            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
+            minHeight: 10,   // %
+            width: 100,
+        },
+        layout: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',     
+            justifyContent: 'center',
+            gap: 10,    //px
+            flexWrap: 'nowrap'
+        },
+        children: [],
+    },
+
+    section: {
+        id: 0,
+        type: 'header',
+        style: {
+            backgroundColor: '#FFFF',
+            border: {
+                width: 0,     // px
+                style: 'dashed',
+                color: '#d1d5db', 
+                radius: 8,    // px
+            },
+            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
+            minHeight: 10,   // %
+            width: 100,
+        },
+        layout: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',     
+            justifyContent: 'center',
+            gap: 10,    //px
+            flexWrap: 'nowrap'
+        },
+        children: [],
+    },
+
     grid: {
         id: 0,
         type: 'grid',

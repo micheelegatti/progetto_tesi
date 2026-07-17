@@ -82,7 +82,7 @@
                 </nav>
             </aside>
 
-            {{-- ZONA CONTENUTO DINAMICO (Qui verranno stampate le tue pagine Blade) --}}
+            {{-- ZONA CONTENUTO DINAMICO --}}
             <main class="flex-1 p-6 md:p-8 overflow-y-auto">
                 @yield('content')
             </main>

@@ -8,6 +8,9 @@ import ImageBlockSettings     from '@/components/editor/blocks/ImageBlockSetting
 import DividerBlockSettings   from '@/components/editor/blocks/DividerBlockSettings.vue'
 import ContainerBlockSettings from '@/components/editor/blocks/ContainerBlockSettings.vue'
 import GridBlockSettings      from '@/components/editor/blocks/GridBlockSettings.vue'
+import HeaderBlockSettings    from '@/components/editor/blocks/HeaderBlockSettings.vue'
+import FooterBlockSettings    from '@/components/editor/blocks/FooterBlockSettings.vue'
+import SectionBlockSettings    from '@/components/editor/blocks/SectionBlockSettings.vue'
 
 defineProps<{ 
   block: Block | null // Il blocco selezionato per mostrare i sotto-pannelli corretti
@@ -26,6 +29,9 @@ const settingsMap: Record<Block['type'], any> = {
     button:    ButtonBlockSettings,
     divider:   DividerBlockSettings,
     container: ContainerBlockSettings,
+    header:    HeaderBlockSettings,
+    footer:    FooterBlockSettings,
+    section:   SectionBlockSettings,
     grid:      GridBlockSettings,
 }
 
