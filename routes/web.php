@@ -16,6 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //rotte per caricamento VUE della dashboard
     Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
+    Route::get('dashboard/template/crea', [App\Http\Controllers\TemplateController::class, 'nuovoTemplate']);
 });
 
 require __DIR__.'/settings.php';
