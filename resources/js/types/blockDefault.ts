@@ -144,6 +144,18 @@ export const blockDefaults: Record<Block['type'], Block> = {
         },
     },
 
+    html: {
+        id:0,
+        type: 'html',
+        props:{
+            text: '<p> Metti qua il tuo codice html </p>'
+        },
+        style: {
+            padding: { top: 1, bottom: 1, right: 1, left: 1 },
+            margin: { top: 0, bottom: 0, right: 0, left: 0 },
+        }
+    },
+
     //sistemato
     container: {
         id: 0,
@@ -201,7 +213,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
 
     footer: {
         id: 0,
-        type: 'header',
+        type: 'footer',
         style: {
             backgroundColor: '#FFFF',
             border: {
@@ -228,7 +240,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
 
     section: {
         id: 0,
-        type: 'header',
+        type: 'section',
         style: {
             backgroundColor: '#FFFF',
             border: {
@@ -252,25 +264,4 @@ export const blockDefaults: Record<Block['type'], Block> = {
         },
         children: [],
     },
-
-    grid: {
-        id: 0,
-        type: 'grid',
-        props: {
-            cols: 3,
-            rows: 2,
-        },
-        style:{
-            backgroundColor: '#FFFFFF',
-            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
-            margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
-            minHeight: 10,   // %
-            width: 100,
-        },
-        layout: {
-            display: 'grid',
-            gap: 10, //px
-        },
-        grid: [[]],
-    },
-    }
+}

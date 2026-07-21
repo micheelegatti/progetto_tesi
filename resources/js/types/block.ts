@@ -1,6 +1,6 @@
 export interface Block {
     id: number
-    type: 'title' | 'text' | 'image' | 'button' | 'divider' | 'container' | 'header' | 'footer' | 'section' | 'grid'
+    type: 'title' | 'text' | 'image' | 'button' | 'divider' | 'html' | 'container' | 'header' | 'footer' | 'section'
     //Oggetto che contiene informazioni specifiche per ogni tipo di blocco (es. testo, immagine, ecc.)
     props?:{
         text?: string
@@ -70,6 +70,5 @@ export interface Block {
         gap?: number
         flexWrap?: 'nowrap' | 'wrap'
     }
-    children?: Block[] //per blocchi di tipo container
-    grid?: (Block | null)[][]   // per blocchi di tipo grid: matrice righe × colonne
+    children?: Block[] //per blocchi di tipo contenitore (Header, Footer, Section, Container)
 }

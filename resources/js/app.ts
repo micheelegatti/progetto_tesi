@@ -9,7 +9,7 @@ import Aura from '@primeuix/themes/aura';
 import ToastService from 'primevue/toastservice';
 
 // Import componenti Vue
-import Editor from './components/editor/Editor.vue';
+import EditorTemplate from './components/editor/EditorTemplate.vue';
 import CanvasEditor from './components/editor/CanvasEditor.vue';
 import SettingsPanelEditor from './components/editor/SettingsPanelEditor.vue';
 import SidebarEditor from './components/editor/SidebarEditor.vue';
@@ -20,15 +20,21 @@ import ContainerBlock from './components/editor/blocks/ContainerBlock.vue';
 import ContainerBlockSettings from './components/editor/blocks/ContainerBlockSettings.vue';
 import DividerBlock from './components/editor/blocks/DividerBlock.vue';
 import DividerBlockSettings from './components/editor/blocks/DividerBlockSettings.vue';
-import GridBlock from './components/editor/blocks/GridBlock.vue';
-import GridBlockSettings from './components/editor/blocks/GridBlockSettings.vue';
 import ImageBlock from './components/editor/blocks/ImageBlock.vue';
 import ImageBlockSettings from './components/editor/blocks/ImageBlockSettings.vue';
 import TextBlock from './components/editor/blocks/TextBlock.vue';
 import TextBlockSettings from './components/editor/blocks/TextBlockSettings.vue';
 import TitleBlock from './components/editor/blocks/TitleBlock.vue';
 import TitleBlockSettings from './components/editor/blocks/TitleBlockSettings.vue';
-import HeaderBlock from './components/editor/blocks/ContainerBlock.vue';
+import HeaderBlock from './components/editor/blocks/HeaderBlock.vue';
+import HeaderBlockSettings from './components/editor/blocks/HeaderBlockSettings.vue';
+import FooterBlock from './components/editor/blocks/FooterBlock.vue';
+import FooterBlockSettings from './components/editor/blocks/FooterBlockSettings.vue';
+import SectionBlock from './components/editor/blocks/SectionBlock.vue';
+import SectionBlockSettings from './components/editor/blocks/SectionBlockSettings.vue';
+import HTMLBlock from './components/editor/blocks/HTMLBlock.vue';
+import HTMLBlockSettings from './components/editor/blocks/HTMLBlockSettings.vue';
+
 
 
 /* Se vuoi usare i componenti PrimeVue direttamente dentro i file Blade:
@@ -63,7 +69,7 @@ if (typeof document !== 'undefined') {
         app.use(ToastService);
 
         // dichiarazionee delle componenti
-        app.component('editor', Editor);
+        app.component('editor-template', EditorTemplate);
         app.component('canvasEditor', CanvasEditor);
         app.component('settingsPanelEditor', SettingsPanelEditor);
         app.component('sidebarEditor', SidebarEditor);
@@ -74,15 +80,21 @@ if (typeof document !== 'undefined') {
         app.component('containerBlockSettings', ContainerBlockSettings);
         app.component('dividerBlock', DividerBlock);
         app.component('dividerBlockSettings', DividerBlockSettings);
-        app.component('gridBlock', GridBlock);
-        app.component('gridBlockSettings', GridBlockSettings);
         app.component('imageBlock', ImageBlock);
         app.component('imageBlockSettings', ImageBlockSettings);
         app.component('textBlock', TextBlock);
         app.component('textBlockSettings', TextBlockSettings);
         app.component('titleBlock', TitleBlock);
         app.component('titleBlockSettings', TitleBlockSettings);
-        app.component('headerBlock', TitleBlockSettings);
+        app.component('headerBlock', HeaderBlock);
+        app.component('headerBlockSettings', HeaderBlockSettings);
+        app.component('footerBlock', FooterBlock);
+        app.component('footerBlockSettings', FooterBlockSettings);
+        app.component('sectionBlock', SectionBlock);
+        app.component('sectionBlockSettings', SectionBlockSettings);
+        app.component('htmlBlock', HTMLBlock);
+        app.component('htmlBlockSettings', HTMLBlockSettings);
+
 
         /* Registrazione dei componenti PrimeVue da usare nel Blade
         app.component('p-button', Button);
