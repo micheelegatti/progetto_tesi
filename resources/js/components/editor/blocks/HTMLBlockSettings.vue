@@ -36,7 +36,7 @@ function handleTab(e: KeyboardEvent) {
             ></textarea>
             
             <p class="text-[11px] text-stone-400 italic">
-                Incolla o scrivi il codice HTML. Puoi usare il tasto TAB per rientrare il testo.
+                Incolla o scrivi il codice HTML
             </p>
         </div>
 

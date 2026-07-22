@@ -33,7 +33,8 @@
                         <td class="p-4 text-stone-500">{{ $template->created_at->format('d/m/Y') }}</td>
                         <td class="p-4 text-right">
                             {{-- Bottone Modifica: Sfondo grigio/pietra chiaro con testo scuro --}}
-                            <a href="{{ route('template.edit', $template->id) }}" class="inline-block bg-stone-100 hover:bg-stone-200/80 text-stone-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                            <a href="{{ url('dashboard/template/' . $template->id . '/modifica') }}" 
+                                class="inline-block bg-stone-100 hover:bg-stone-200/80 text-stone-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
                                 Modifica
                             </a>
                         </td>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { inject, type Ref } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import type { Block } from '@/types/block'
 import TitleBlock   from '@/components/editor/blocks/TitleBlock.vue'
@@ -14,10 +15,15 @@ const props = defineProps<{
     block: Block
 }>()
 
+//recupero l'id selezionato come inject da EditorTemplate che lo ha dichiarato provide
+const selectedId = inject<Ref<number | null>>('selectedId')
+
+
 const emit = defineEmits<{
     (e: 'select', block: Block): void
     (e: 'delete', id: number): void
-    (e: 'drop-block', type: Block['type']): void
+    //Passo sia blocco contenitore di destinazione che il tipo
+    (e: 'drop-block', targetBlock: Block, type: Block['type']): void
     (e: 'update:children', children: Block[]): void
 }>()
 
@@ -36,17 +42,39 @@ const children = computed({
     set: (val) => emit('update:children', val)
 })
 
+
 function onDragOver(e: DragEvent) {
     e.preventDefault()
+    e.stopPropagation()
+    if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = 'copy'
+    }
 }
 
 function onDrop(e: DragEvent) {
     e.preventDefault()
     e.stopPropagation()
-    
+
+    // Quando riordini o scambi due blocchi esistenti con VueDraggable, 
+    // l'evento di rilascio NON arriva dalla Sidebar e non ha il "block-type".
     const type = e.dataTransfer?.getData('block-type') as Block['type']
-    if (type) emit('drop-block', type)
+    
+    // Se non c'è un block-type valido, significa che è un semplice riordinamento interno. 
+    // Blocchiamo tutto e NON creiamo nessun blocco!
+    if (!type) {
+        return 
+    }
+
+    // Whitelist dei tipi ammessi dalla Sidebar
+    const validTypes = ['container', 'title', 'text', 'image', 'button', 'divider', 'html']
+    if (!validTypes.includes(type)) {
+        return
+    }
+
+    // Se è un vero blocco proveniente dalla Sidebar, procedi
+    emit('drop-block', props.block, type)
 }
+
 </script>
 
 <template>
@@ -84,7 +112,7 @@ function onDrop(e: DragEvent) {
         <VueDraggable
             v-model="children"
             data-container
-            group="blocks"
+            group="inner-blocks"
             :style="{
                 display: block.layout?.display,
                 flexDirection: block.layout?.flexDirection,
@@ -106,9 +134,13 @@ function onDrop(e: DragEvent) {
                 }"
                 @click.stop="emit('select', child)"
             >
-                <div class="absolute top-2 right-2 hidden group-hover:flex gap-1 z-10">
+                <!-- Pulsante elimina elemento interno -->
+                <div 
+                    v-if="selectedId === child.id" 
+                    class="absolute top-2 right-2 flex gap-1 z-10"
+                >
                     <button
-                        class="w-5 h-5 flex items-center justify-center rounded border border-stone-200 bg-white text-stone-400 hover:text-red-500 text-xs shadow-sm"
+                        class="w-5 h-5 flex items-center justify-center rounded border border-stone-200 bg-white text-stone-400 hover:text-red-500 hover:border-red-200 text-[10px] shadow-sm transition"
                         @click.stop="emit('delete', child.id)"
                     >✕</button>
                 </div>
@@ -119,7 +151,7 @@ function onDrop(e: DragEvent) {
                     :block="child"
                     @select="(b: Block) => emit('select', b)"  
                     @delete="(id: number) => emit('delete', id)"
-                    @drop-block="(type: Block['type']) => emit('drop-block', type)"
+                    @drop-block="(targetBlock: Block, type: Block['type']) => emit('drop-block', targetBlock, type)"
                     @update:children="(newChildren: Block[]) => child.children = newChildren"
                 />
             </div>

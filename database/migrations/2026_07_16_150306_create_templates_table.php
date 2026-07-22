@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->text('content');      //html
+            $table->json('content');
             $table->timestamps();
         });
     }

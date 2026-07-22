@@ -15,11 +15,6 @@ import HTMLBlockSettings      from './blocks/HTMLBlockSettings.vue'
 defineProps<{ 
   block: Block | null // Il blocco selezionato per mostrare i sotto-pannelli corretti
   blocks: Block[]     // L'albero completo dei blocchi
-  isSaving?: boolean  // Stato di caricamento passato dal padre
-}>()
-
-const emit = defineEmits<{
-  (e: 'save'): void // Notifica al componente padre che l'utente vuole salvare
 }>()
 
 const settingsMap: Record<Block['type'], any> = {
@@ -69,15 +64,5 @@ function toggleSection(key: string) {
       </template>
     </div>
 
-    <!-- Pulsante di salvataggio (sempre visibile in fondo alla barra) -->
-    <div class="p-4 border-t border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
-      <button 
-        @click="emit('save')"
-        :disabled="isSaving"
-        class="w-full bg-blue-600 text-white py-2.5 text-sm font-semibold rounded-xl hover:bg-blue-700 disabled:opacity-60 transition shadow-sm"
-      >
-        {{ isSaving ? 'Salvataggio in corso...' : 'Salva Template' }}
-      </button>
-    </div>
   </aside>
 </template>

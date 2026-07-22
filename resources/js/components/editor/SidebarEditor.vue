@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Block } from '@/types/block'
+import { inject, type Ref } from 'vue'
 
-const props = defineProps<{
-    selectedBlock: Block | null
-}>()
+//recupero l'id selezionato come inject dal padre che lo ha dichiarato provide
+const selectedId = inject<Ref<number | null>>('selectedId')
 
 // Definisco i blocchi di tipo layout (Griglia rimossa ufficialmente)
 const layoutBlocks = [
@@ -27,10 +27,6 @@ const contentBlocks = [
 
 <template>
     <aside class="w-52 border-r border-stone-200 bg-stone-50 flex flex-col flex-shrink-0 overflow-y-auto dark:border-stone-800 dark:bg-stone-950">
-        <div class="px-4 py-3 border-b border-stone-200 dark:border-stone-800">
-            <h2 class="text-xs font-semibold text-stone-500 uppercase tracking-wider dark:text-stone-400">Elementi</h2>
-        </div>
-
         <!-- Sezione Layout -->
         <div class="p-3">
             <p class="text-xs text-stone-400 px-1 pb-2 font-semibold uppercase tracking-wider dark:text-stone-500">Layout</p>
@@ -47,7 +43,7 @@ const contentBlocks = [
         </div>
 
         <!-- Sezione Contenuto -->
-        <div v-if="selectedBlock">
+        <div v-if="selectedId">
             <div class="p-3">
                 <p class="text-xs text-stone-400 px-1 pb-2 font-semibold uppercase tracking-wider dark:text-stone-500">Contenuto</p>
                 <div

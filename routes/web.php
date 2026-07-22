@@ -18,12 +18,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // rotta dal login alla home/dashboard
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-    // rotte per caricamento VUE della dashboard
+    //Rotte per le campagne
     Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
+
+    // rotte per i template 
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
     Route::get('dashboard/template/crea', [App\Http\Controllers\TemplateController::class, 'nuovoTemplate']);
-    Route::post('dashboard/template/salva', [App\Http\Controllers\TemplateController::class, 'store']);
-    Route::post('dashboard/template/aggiorna', [App\Http\Controllers\TemplateController::class, 'update']);
+    Route::post('dashboard/template', [App\Http\Controllers\TemplateController::class, 'store']);
+    Route::get('dashboard/template/{id}/modifica', [App\Http\Controllers\TemplateController::class, 'edit']);
+    Route::put('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'update']);
 });
 
 require __DIR__.'/settings.php';
