@@ -4,7 +4,8 @@ import Divider from 'primevue/divider';
 defineProps<{ block: Block }>()
 </script>
 <template>
-    <Divider :align="block.style?.textAlign || 'center'"  class="my-divider"
+    <Divider 
+            :align="block.style?.textAlign || 'center'"  class="my-divider"
             :style="{
                 fontSize: block.style?.fontSize,
                 fontFamily: block.style?.fontFamily,

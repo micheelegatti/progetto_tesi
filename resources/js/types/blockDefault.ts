@@ -130,8 +130,8 @@ export const blockDefaults: Record<Block['type'], Block> = {
             borderTopWidth: 1,
             borderTopColor: '#808080',
             padding: {
-                top: 0,
-                bottom: 0,
+                top: 1,
+                bottom: 1,
                 right: 0,
                 left: 0,
             },

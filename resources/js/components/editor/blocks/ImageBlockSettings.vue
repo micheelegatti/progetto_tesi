@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import type { Block } from '@/types/block'
+import { ref } from 'vue'
 import axios from 'axios'
 //import MediaLibrary from './MediaLibrary.vue'
 
 const showMediaLibrary = ref(false)
 
-const props = defineProps<{ blockSelected: Block }>()
+const props = defineProps<{ 
+    blockSelected: Block 
+}>()
 
-async function uploadImage(e: Event) {
-    const file = (e.target as HTMLInputElement).files?.[0]
-    if (!file) return
-    
-    const formData = new FormData()
-    formData.append('image', file)
-    
-    const { data } = await axios.post('/api/upload-image', formData)
-    props.blockSelected.props!.src = data.url
-}
 </script>
 
 <template>
@@ -39,7 +32,7 @@ async function uploadImage(e: Event) {
         <Button label="Scegli immagine" @click="showMediaLibrary = true" />
         <MediaLibrary 
             v-model:visible="showMediaLibrary"
-            @select="(url) => props.blockSelected.props!.src = url"
+            @select="(url:string) => props.blockSelected.props!.src = url"
         />
       </div>
       <!-- Ridimensionamento -->
