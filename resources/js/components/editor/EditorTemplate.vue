@@ -4,7 +4,7 @@ import axios from 'axios'
 import type { Block } from '@/types/block'
 import { blockDefaults } from '@/types/blockDefault'
 import Sidebar from '@/components/editor/SidebarEditor.vue'
-import Canvas from '@/components/editor/CanvasEditor.vue'
+import Canvas from '@/components/editor/CanvasEditorTemplate.vue'
 import SettingsPanelEditor from '@/components/editor/SettingsPanelEditor.vue'
 
 // Props opzionali nel caso di un template esistente da modificare

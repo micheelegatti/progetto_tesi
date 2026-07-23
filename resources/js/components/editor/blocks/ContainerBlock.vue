@@ -125,7 +125,12 @@ function onDrop(e: DragEvent) {
             <div
                 v-for="child in children"
                 :key="child.id"
-                class="relative group border border-stone-200 rounded-lg bg-white cursor-pointer hover:border-blue-400/70 transition"
+                class="relative group border rounded-lg bg-white transition"
+                :class="[
+                    selectedId === child.id 
+                        ? 'border-blue-500 ring-1 ring-blue-500 cursor-pointer' 
+                        : 'border-stone-200'
+                ]"
                 :style="{ 
                     width: child.style?.width ? child.style.width + '%' : '100%',
                     height: child.style?.height ? child.style.height + 'px' : '100%', 

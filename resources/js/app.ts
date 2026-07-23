@@ -10,7 +10,9 @@ import ToastService from 'primevue/toastservice';
 
 // Import componenti Vue
 import EditorTemplate from './components/editor/EditorTemplate.vue';
-import CanvasEditor from './components/editor/CanvasEditor.vue';
+import CanvasEditorTemplate from './components/editor/CanvasEditorTemplate.vue';
+import EditorCampagna from './components/editor/EditorCampagna.vue';
+import CanvasEditorCampagna from './components/editor/CanvasEditorCampagna.vue';
 import SettingsPanelEditor from './components/editor/SettingsPanelEditor.vue';
 import SidebarEditor from './components/editor/SidebarEditor.vue';
 
@@ -70,7 +72,9 @@ if (typeof document !== 'undefined') {
 
         // dichiarazionee delle componenti
         app.component('editor-template', EditorTemplate);
-        app.component('canvasEditor', CanvasEditor);
+        app.component('canvasEditor', CanvasEditorTemplate);
+        app.component('editor-campagna', EditorCampagna);
+        app.component('canvasEditor', CanvasEditorCampagna);
         app.component('settingsPanelEditor', SettingsPanelEditor);
         app.component('sidebarEditor', SidebarEditor);
 
