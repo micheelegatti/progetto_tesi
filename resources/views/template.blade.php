@@ -7,7 +7,7 @@
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-2xl font-bold text-stone-900">I Miei Template</h1>
-            <p class="text-sm text-stone-500">Gestisci i modelli grafici per le tue email.</p>
+            <p class="text-sm text-stone-500">Gestisci i modelli grafici per le tue email</p>
         </div>
         <a href="/dashboard/template/crea" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition">
             Nuovo Template
@@ -44,7 +44,7 @@
                     <tr>
                         <td colspan="3" class="p-12 text-center text-stone-400">
                             <div class="text-base font-medium mb-1">Nessun template salvato</div>
-                            <p class="text-sm">Clicca su "Nuovo Template" per iniziare a creare il tuo primo modello.</p>
+                            <p class="text-sm">Clicca su "Nuovo Template" per iniziare a creare il tuo primo modello</p>
                         </td>
                     </tr>
                 @endforelse

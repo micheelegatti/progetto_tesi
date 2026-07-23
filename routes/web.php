@@ -18,10 +18,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // rotta dal login alla home/dashboard
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-    //Rotte per le campagne
+    //Rotte per le campagne - CampagnaController
     Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
+    Route::get('dashboard/campagna/info', [App\Http\Controllers\CampagnaController::class, 'infoCampagna']);
+    Route::post('dashboard/campagna/store', [App\Http\Controllers\CampagnaController::class, 'storeInfo']);
+    Route::get('dashboard/campagna/{id}/crea', [App\Http\Controllers\CampagnaController::class, 'nuovaCampagna']);
 
-    // rotte per i template 
+    // rotte per i template - TemplateController
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
     Route::get('dashboard/template/crea', [App\Http\Controllers\TemplateController::class, 'nuovoTemplate']);
     Route::post('dashboard/template', [App\Http\Controllers\TemplateController::class, 'store']);
