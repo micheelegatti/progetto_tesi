@@ -91,7 +91,6 @@ function onDrop(e: DragEvent, dropIndex?: number) {
             class="flex flex-col gap-4 max-w-5xl mx-auto min-h-[500px] p-2"
             group="root-blocks"
             :animation="150"
-            ghost-class="ghost-custom"
             filter=".no-drag"
         >
             <div
@@ -169,11 +168,3 @@ function onDrop(e: DragEvent, dropIndex?: number) {
         </VueDraggable>
     </main>
 </template>
-
-<style scoped>
-:deep(.ghost-custom) {
-    opacity: 0.3;
-    background-color: #e0f2fe !important;
-    border: 2px dashed #0284c7 !important;
-}
-</style>

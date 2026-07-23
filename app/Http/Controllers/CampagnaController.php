@@ -42,14 +42,44 @@ class CampagnaController extends Controller
         ]);
 
         //Reindirizzamento al builder della campagna - passa dal metodo sotto nuovaCampagna
-        return redirect(url('dashboard/campagna/' . $campagna->id . '/crea'));
+        return redirect(url('dashboard/campagna/' . $campagna->id));
     }
 
 
     //Metodo per aprire il builder della nuova campagna
-    public function nuovaCampagna($id){
+    public function getCampagna($id){
         //recupero il template selezionato
         $campagna = Campagna::findOrFail($id);
         return view('builderCampagna', compact('campagna'));
+    }
+
+    //Metodo per aggiornare i dati di una campagna esistente 
+    public function update(Request $request, $id)
+    {
+        logger('Qui sei arrivato');
+        logger('CAMPAGNA ID NEL CONTROLLER: ' . $id);
+        // Trova la campagna o restituisce un errore 404 se non esiste
+        $campagna = Campagna::findOrFail($id);
+
+        if (!$campagna) {
+            return response()->json([
+                'error' => "La campagna con ID {$id} non esiste nel database!"
+            ], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'blocks' => 'required|array',
+        ]);
+
+        $campagna->update([
+            'name' => $validated['name'],
+            'content' => $validated['blocks'],
+        ]);
+
+        return response()->json([
+            'message' => 'Campagna aggiornata con successo!',
+            'template' => $campagna
+        ]);
     }
 }

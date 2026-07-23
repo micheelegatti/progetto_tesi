@@ -16,13 +16,15 @@ Route::get('/', function () {
 // ROTTE PRIVATE
 Route::middleware(['auth', 'verified'])->group(function () {
     // rotta dal login alla home/dashboard
-    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    //PROVVISORIAMENTE USO IL PASSAGGIO ALLA CAMPAGNA
+    Route::get('dashboard', [App\Http\Controllers\CampagnaController::class, 'index'])->name('dashboard');
 
     //Rotte per le campagne - CampagnaController
     Route::get('dashboard/campagna', [App\Http\Controllers\CampagnaController::class, 'index'])->name('campagna');
     Route::get('dashboard/campagna/info', [App\Http\Controllers\CampagnaController::class, 'infoCampagna']);
     Route::post('dashboard/campagna/store', [App\Http\Controllers\CampagnaController::class, 'storeInfo']);
-    Route::get('dashboard/campagna/{id}/crea', [App\Http\Controllers\CampagnaController::class, 'nuovaCampagna']);
+    Route::get('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'getCampagna']);
+    Route::put('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'update']);
 
     // rotte per i template - TemplateController
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
