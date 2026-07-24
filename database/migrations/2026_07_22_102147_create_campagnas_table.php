@@ -22,7 +22,7 @@ return new class extends Migration
                   ->constrained('templates')
                   ->nullOnDelete();
             $table->json('content');
-            $table->string('stato')->default('draft');
+            $table->string('stato')->default('Bozza');
             $table->timestamps();
         });
     }

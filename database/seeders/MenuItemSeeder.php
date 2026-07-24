@@ -21,6 +21,10 @@ class MenuItemSeeder extends Seeder
                 'title' => 'Template',
                 'route' => 'template',
             ],
+            [
+                'title' => 'Destinatari',
+                'route' => 'destinatari',
+            ],
         ];
         
         foreach ($items as $menuItem) {

@@ -32,6 +32,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('dashboard/template', [App\Http\Controllers\TemplateController::class, 'store']);
     Route::get('dashboard/template/{id}/modifica', [App\Http\Controllers\TemplateController::class, 'edit']);
     Route::put('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'update']);
+
+    //rotte per la sezione destinatari
+    //pagina contatti come landingPage
+    Route::get('dashboard/destinatari/contatti', [App\Http\Controllers\DestinatariController::class, 'index'])->name('destinatari');
+    Route::get('dashboard/destinatari/liste', [App\Http\Controllers\ListaController::class, 'index']);
+    Route::get('dashboard/destinatari/import', [App\Http\Controllers\DestinatariController::class, 'indexImport']);
 });
 
 require __DIR__.'/settings.php';

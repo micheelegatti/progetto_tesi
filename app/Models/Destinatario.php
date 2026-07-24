@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use App\Enum\StatoIscrizione;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Destinatario extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'nme',
+        'cognome',
+        'email',
+        'stato',
+    ];
+
+    protected $casts = [
+        'stato' => StatoIscrizione::class
+    ];
+
+    public function liste(): BelongsToMany
+    {
+        return $this->belongsToMany(Lista::class, 'destinatario_lista', 'destinatario_id', 'lista_id');
+    }
+}

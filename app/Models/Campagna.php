@@ -20,6 +20,7 @@ class Campagna extends Model
     // Converte automaticamente il JSON in array PHP e viceversa
     protected $casts = [
         'content' => 'array',
+        'stato'   => StatoCampagna::class
     ];
 
     public function user()
