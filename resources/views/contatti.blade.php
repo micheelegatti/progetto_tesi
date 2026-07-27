@@ -43,14 +43,14 @@
     </div>
 
     <div class="border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/50 rounded-2xl overflow-x-auto shadow-sm">
-        <table class="w-full text-left">
+        <table class="w-full table-fixed text-left">
             <thead class="bg-slate-50 border-b border-slate-200 dark:bg-slate-800/50 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 <tr>
                     <th class="p-4 font-semibold">Nome</th>
                     <th class="p-4 font-semibold">Email</th>
                     <th class="p-4 font-semibold">Stato</th>
                     <th class="p-4 font-semibold">Aggiunto il</th>
-                    <th class="p-4 text-right font-semibold">Azione</th>
+                    <th class="p-4 text-right font-semibold">Azioni</th>
                 </tr>
             </thead>
             <tbody class="text-sm text-slate-700 dark:text-slate-300 divide-y divide-slate-200 dark:divide-slate-800">
@@ -84,6 +84,15 @@
                                class="inline-flex items-center px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-lg transition">
                                 Liste
                             </a>
+                            {{-- Form ed eliminazione (di fianco) --}}
+                            <form action="{{ url('dashboard/destinatari/contatti/' . $contatto->id) }}" method="POST" class="inline" onsubmit="return confirm('Sei sicuro di voler eliminare questo contatto?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 dark:bg-red-950/50 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 text-xs font-semibold rounded-lg transition">
+                                    Elimina
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty

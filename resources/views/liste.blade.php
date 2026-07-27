@@ -14,7 +14,7 @@
 </div>
 
 <div class="border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/50 rounded-lg overflow-hidden shadow-sm">
-    <table class="w-full text-left border-collapse">
+    <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-slate-50 border-b border-slate-200 dark:border-slate-800 dark:bg-slate-800">
             <tr>
                 <th class="p-4 text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase">ID</th>
@@ -39,10 +39,22 @@
                             {{ $lista->disiscritti_count }}
                         </span>
                     </td>
-                    <td class="p-4 text-right">
-                        <a href="{{ url('dashboard/destinatari/liste/' .$lista->id. '/edit') }}" class="inline-block bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                    <td class="p-4 text-right space-x-2 flex items-center justify-end">
+                        {{-- Bottone Modifica --}}
+                        <a href="{{ url('dashboard/destinatari/liste/' . $lista->id . '/edit') }}" 
+                        class="inline-flex items-center px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-lg transition">
                             Modifica
                         </a>
+                        
+                        {{-- Form ed eliminazione (di fianco) --}}
+                        <form action="{{ url('dashboard/destinatari/liste/' . $lista->id) }}" method="POST" class="inline" onsubmit="return confirm('Sei sicuro di voler eliminare questa lista?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                                    class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 dark:bg-red-950/50 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 text-xs font-semibold rounded-lg transition">
+                                Elimina
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @empty

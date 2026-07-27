@@ -90,4 +90,18 @@ class ListaController extends Controller
 
         return redirect(url('dashboard/destinatari/liste'));
     }
+
+    //Metodo per eliminare una lista 
+    public function delete($id)
+    {
+        $lista = Liste::findOrFail($id);
+        
+        // Rimuove i collegamenti nella tabella pivot (senza cancellare i contatti)
+        $lista->destinatari()->detach();
+        
+        // Elimina la lista
+        $lista->delete();
+
+        return redirect(url('dashboard/destinatari/liste'));
+    }
 }

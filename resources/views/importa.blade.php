@@ -22,7 +22,7 @@
     </a>
 
     {{-- Riquadro 2: Importa file CSV --}}
-    <a href="#" class="group border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 rounded-xl p-8 text-center hover:border-indigo-600 dark:hover:border-indigo-500 hover:shadow-md transition flex flex-col items-center justify-center">
+    <a href="{{ url('dashboard/destinatari/import/lista') }}" class="group border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 rounded-xl p-8 text-center hover:border-indigo-600 dark:hover:border-indigo-500 hover:shadow-md transition flex flex-col items-center justify-center">
         <div class="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
             {{-- Icona File/Documento --}}
             <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

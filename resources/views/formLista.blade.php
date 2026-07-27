@@ -37,41 +37,20 @@
             @enderror
         </div>
 
-        {{-- Selezione Contatti (Aggiungi / Togli) --}}
+        {{-- Selezione Contatti tramite il componente Vue --}}
         <div class="mb-6">
             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Seleziona Contatti</label>
-            <div class="border border-slate-200 dark:border-slate-800 rounded-lg max-h-60 overflow-y-auto divide-y divide-slate-200 dark:divide-slate-800 bg-slate-50/50 dark:bg-slate-900">
-                @forelse($destinatari as $destinatario)
-                    <label class="flex items-center justify-between px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer transition">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="destinatari[]" value="{{ $destinatario->id }}"
-                                {{ in_array($destinatario->id, old('destinatari', $contattiSelezionati ?? [])) ? 'checked' : '' }}
-                                class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 h-4 w-4">
-                            <div class="ml-3 text-sm text-slate-900 dark:text-white">
-                                <span class="font-medium">{{ $destinatario->nome }} {{ $destinatario->cognome }}</span>
-                                <span class="text-slate-400 text-xs ml-2">({{ $destinatario->email }})</span>
-                            </div>
-                        </div>
-                        <div>
-                            @if($destinatario->stato === App\Enum\StatoIscrizione::Iscritto)
-                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                    {{ $destinatario->stato }}
-                                </span>
-                            @else
-                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-amber-400">
-                                    {{ $destinatario->stato }}
-                                </span>
-                            @endif
-                        </div>
-                    </label>
-                @empty
-                    <div class="p-4 text-center text-sm text-slate-500">Nessun contatto registrato nel sistema</div>
-                @endforelse
-            </div>
+            
+            <selezione-contatti
+                :destinatari='@json($destinatari)' 
+                :initial-selected='@json(old("destinatari", $contattiSelezionati ?? []))'>
+            </selezione-contatti>
+
             @error('destinatari')
                 <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
             @enderror
         </div>
+
         {{-- Pulsanti di Azione --}}
         <div class="flex justify-end gap-3">
             <a href="{{ url()->previous() }}" class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
@@ -84,3 +63,5 @@
     </form>
 </div>
 @endsection
+
+@vite('resources/js/app.ts')

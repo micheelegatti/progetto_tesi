@@ -20,7 +20,7 @@
             }
         })();
     </script>
-    
+
     {{-- Stili per il background (Prevengono i flash bianchi al caricamento) --}}
     <style>
         html {
@@ -63,7 +63,7 @@
         <div class="flex flex-1">
             
             {{-- SIDEBAR DI NAVIGAZIONE --}}
-            <aside class="w-64 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex">
+            <aside class="w-64 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
                 <nav class="space-y-1">
                     <p class="px-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Menu Principale</p>
                     

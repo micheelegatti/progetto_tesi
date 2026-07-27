@@ -36,6 +36,7 @@ import SectionBlock from './components/editor/blocks/SectionBlock.vue';
 import SectionBlockSettings from './components/editor/blocks/SectionBlockSettings.vue';
 import HTMLBlock from './components/editor/blocks/HTMLBlock.vue';
 import HTMLBlockSettings from './components/editor/blocks/HTMLBlockSettings.vue';
+import SelezioneContatti from './components/other/SelezioneContatti.vue';
 
 
 
@@ -98,6 +99,8 @@ if (typeof document !== 'undefined') {
         app.component('sectionBlockSettings', SectionBlockSettings);
         app.component('htmlBlock', HTMLBlock);
         app.component('htmlBlockSettings', HTMLBlockSettings);
+        
+        app.component('selezione-contatti', SelezioneContatti);
 
 
         /* Registrazione dei componenti PrimeVue da usare nel Blade

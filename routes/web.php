@@ -36,20 +36,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //rotte per la sezione destinatari
     //pagina contatti come landingPage
     Route::get('dashboard/destinatari/contatti', [App\Http\Controllers\DestinatariController::class, 'index'])->name('destinatari');
-    Route::get('dashboard/destinatari/import', [App\Http\Controllers\DestinatariController::class, 'indexImport']);
-    Route::get('dashboard/destinatari/import/contatto', [App\Http\Controllers\DestinatariController::class, 'create']);
-    Route::post('dashboard/destinatari/import/contatto', [App\Http\Controllers\DestinatariController::class, 'store']);
     Route::get('dashboard/destinatari/import/{id}/edit', [App\Http\Controllers\DestinatariController::class, 'edit']);
     Route::put('dashboard/destinatari/import/{id}', [App\Http\Controllers\DestinatariController::class, 'update']);
-
+    Route::delete('dashboard/destinatari/contatti/{id}', [App\Http\Controllers\DestinatariController::class, 'delete']);
+    //aggiunta contatto a una lista
     Route::get('dashboard/destinatari/contatti/{id}/liste', [App\Http\Controllers\DestinatariController::class, 'listeContatto']);
     Route::put('/dashboard/destinatari/contatti/{id}/liste', [App\Http\Controllers\DestinatariController::class, 'updateListeContatto']);
     
+
+    //rotte per import
+    Route::get('dashboard/destinatari/import', [App\Http\Controllers\DestinatariController::class, 'indexImport']);
+    Route::get('dashboard/destinatari/import/contatto', [App\Http\Controllers\DestinatariController::class, 'create']);
+    Route::post('dashboard/destinatari/import/contatto', [App\Http\Controllers\DestinatariController::class, 'store']);
+    Route::get('dashboard/destinatari/import/lista', [App\Http\Controllers\DestinatariController::class, 'showImport']);
+    Route::post('dashboard/destinatari/import/lista', [App\Http\Controllers\DestinatariController::class, 'storeImport']);
+
+    //rotte per liste
     Route::get('dashboard/destinatari/liste', [App\Http\Controllers\ListaController::class, 'index']);
     Route::get('dashboard/destinatari/liste/crea', [App\Http\Controllers\ListaController::class, 'create']);
     Route::post('dashboard/destinatari/liste', [App\Http\Controllers\ListaController::class, 'store']);
     Route::get('dashboard/destinatari/liste/{id}/edit', [App\Http\Controllers\ListaController::class, 'edit']);
     Route::put('dashboard/destinatari/liste/{id}', [App\Http\Controllers\ListaController::class, 'update']);
+    Route::delete('dashboard/destinatari/liste/{id}', [App\Http\Controllers\ListaController::class, 'delete']);
 });
 
 require __DIR__.'/settings.php';

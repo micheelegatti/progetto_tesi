@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\StatoIscrizione;
 use App\Models\Destinatario;
 use App\Models\Liste;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class DestinatariController extends Controller
 }
 
 
-    //Mi apre la pagina la view degli import
+    //Mi apre la pagina la view dell'import singolo
     public function indexImport()
     {
         return view('importa');
@@ -104,5 +105,92 @@ class DestinatariController extends Controller
         $contatto->liste()->sync($request->input('liste', []));
 
         return redirect(url('dashboard/destinatari/contatti'));
+    }
+
+    //Metodo per eliminare un contatto
+    public function delete($id)
+    {
+        $contatto= Destinatario::findOrFail($id);
+        
+        // Rimuove i collegamenti nella tabella pivot (senza cancellare i contatti)
+        $contatto->liste()->detach();
+        
+        // Elimina la lista
+        $contatto->delete();
+
+        return redirect(url('dashboard/destinatari/contatti'));
+    }
+
+
+    // Mostra la vista di importazione con le liste esistenti
+    public function showImport()
+    {
+        $liste = Liste::all();
+        return view('importLista', compact('liste'));
+    }
+
+    // Esegue l'importazione del CSV
+    public function storeImport(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|file|extensions:csv',
+            'lista_id' => 'nullable|exists:liste,id',
+            'nuova_lista_nome' => 'nullable|string|max:255',
+        ]);
+
+        $file = $request->file('csv_file');
+        $handle = fopen($file->getRealPath(), 'r');
+        
+        // Legge la prima riga (intestazione) per saltarla
+        $header = fgetcsv($handle, 1000, ',');
+        
+        $importedIds = [];
+
+        // Legge riga per riga il CSV (Formato atteso: Nome, Cognome, Email)
+        while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+            if (count($row) < 3) continue;
+
+            $nome = trim($row[0]);
+            $cognome = trim($row[1]);
+            $email = trim($row[2]);
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                continue; // Salta le email non valide
+            }
+
+            // Crea o aggiorna il contatto in base all'email (evita duplicati)
+            $destinatario = Destinatario::updateOrCreate(
+                ['email' => $email],
+                [
+                    'nome' => $nome,
+                    'cognome' => $cognome,
+                    'stato' => StatoIscrizione::Iscritto, // O il tuo valore di default
+                ]
+            );
+
+            $importedIds[] = $destinatario->id;
+        }
+        fclose($handle);
+
+        // Gestione della lista (Gruppo)
+        $listaId = $request->lista_id;
+
+        // Se l'utente ha scritto il nome per una nuova lista, la creiamo
+        if ($request->filled('nuova_lista_nome')) {
+            $nuovaLista = Liste::create([
+                'nome' => $request->nuova_lista_nome,
+                'descrizione' => 'Creata tramite importazione CSV',
+            ]);
+            $listaId = $nuovaLista->id;
+        }
+
+        // Se è stata selezionata o creata una lista, associamo i contatti importati
+        if ($listaId && !empty($importedIds)) {
+            $lista = Liste::findOrFail($listaId);
+            // syncWithoutDetaching aggiunge i nuovi contatti senza rimuovere quelli eventualmente già presenti
+            $lista->destinatari()->syncWithoutDetaching($importedIds);
+        }
+
+        return redirect('dashboard/destinatari/contatti')->with('success', 'Contatti importati con successo!');
     }
 }
