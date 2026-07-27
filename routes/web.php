@@ -38,6 +38,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/destinatari/contatti', [App\Http\Controllers\DestinatariController::class, 'index'])->name('destinatari');
     Route::get('dashboard/destinatari/liste', [App\Http\Controllers\ListaController::class, 'index']);
     Route::get('dashboard/destinatari/import', [App\Http\Controllers\DestinatariController::class, 'indexImport']);
+    Route::get('dashboard/destinatari/import/contatto', [App\Http\Controllers\DestinatariController::class, 'create']);
+    Route::post('dashboard/destinatari/import/contatto', [App\Http\Controllers\DestinatariController::class, 'store']);
+    Route::get('dashboard/destinatari/import/{id}/edit', [App\Http\Controllers\DestinatariController::class, 'edit']);
+    Route::put('dashboard/destinatari/import/{id}', [App\Http\Controllers\DestinatariController::class, 'update']);
 });
 
 require __DIR__.'/settings.php';

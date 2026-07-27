@@ -12,7 +12,7 @@ class Destinatario extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nme',
+        'nome',
         'cognome',
         'email',
         'stato',
@@ -24,6 +24,11 @@ class Destinatario extends Model
 
     public function liste(): BelongsToMany
     {
-        return $this->belongsToMany(Lista::class, 'destinatario_listas', 'destinatario_id', 'lista_id');
+        return $this->belongsToMany(
+            Liste::class, 
+            'destinatario_listas', 
+            'destinatario_id', 
+            'lista_id'
+            );
     }
 }

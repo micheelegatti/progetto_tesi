@@ -38,7 +38,7 @@
                     </td>
                     <td class="p-4 text-slate-500 dark:text-slate-400">{{ $contatto->created_at->format('d/m/Y') }}</td>
                     <td class="p-4 text-right space-x-2">
-                        <a href="#" class="inline-block bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                        <a href="{{ url('dashboard/destinatari/import/' . $contatto->id . '/edit') }}" class="inline-block bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
                             Modifica
                         </a>
                     </td>
