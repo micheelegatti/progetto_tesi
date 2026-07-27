@@ -24,6 +24,6 @@ class Destinatario extends Model
 
     public function liste(): BelongsToMany
     {
-        return $this->belongsToMany(Lista::class, 'destinatario_lista', 'destinatario_id', 'lista_id');
+        return $this->belongsToMany(Lista::class, 'destinatario_listas', 'destinatario_id', 'lista_id');
     }
 }
