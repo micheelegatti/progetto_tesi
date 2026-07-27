@@ -3,17 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destinatario;
+use App\Models\Liste;
 use Illuminate\Http\Request;
 
 class DestinatariController extends Controller
 {
     //Mi apre la pagina la view con i contatti
-    public function index()
-    {
-        $contatti = Destinatario::all();
-        
-        return view('contatti', compact('contatti'));
+    public function index(Request $request)
+{
+    $query = Destinatario::query();
+
+    // Filtro per email (cerca se l'email contiene il testo inserito)
+    if ($request->filled('email')) {
+        $query->where('email', 'like', '%' . $request->input('email') . '%');
     }
+
+    // Filtro per stato
+    if ($request->filled('stato')) {
+        $query->where('stato', $request->input('stato'));
+    }
+
+    // Prendo i contatti filtrati
+    $contatti = $query->get();
+
+    return view('contatti', compact('contatti'));
+}
 
 
     //Mi apre la pagina la view degli import
@@ -65,6 +79,29 @@ class DestinatariController extends Controller
         ]);
 
         $destinatario->update($validated);
+
+        return redirect(url('dashboard/destinatari/contatti'));
+    }
+
+    //Restituisce il form per aggiungere il contatto a delle liste
+    public function listeContatto($id)
+    {
+        $contatto = Destinatario::findOrFail($id);
+        $liste = Liste::all(); 
+        
+        // ID delle liste a cui questo contatto è già associato
+        $listeSelezionate = $contatto->liste?->pluck('id')->toArray() ?? [];
+
+        return view('listeContatto', compact('contatto', 'liste', 'listeSelezionate'));
+    }
+
+    //Aggiorna aggiungendo il contatto alle liste
+    public function updateListeContatto(Request $request, $id)
+    {
+        $contatto = Destinatario::findOrFail($id);
+
+        // Sincronizza le liste del contatto
+        $contatto->liste()->sync($request->input('liste', []));
 
         return redirect(url('dashboard/destinatari/contatti'));
     }

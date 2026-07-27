@@ -8,7 +8,7 @@
     </div>
     
     {{-- Bottone per creare una nuova lista --}}
-    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+    <a href="{{ url('dashboard/destinatari/liste/crea') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
         + Crea Nuova Lista
     </a>
 </div>
@@ -40,7 +40,9 @@
                         </span>
                     </td>
                     <td class="p-4 text-right">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">Modifica</a>
+                        <a href="{{ url('dashboard/destinatari/liste/' .$lista->id. '/edit') }}" class="inline-block bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                            Modifica
+                        </a>
                     </td>
                 </tr>
             @empty

@@ -6,7 +6,7 @@
     
     <title>{{ config('app.name', 'Softweb Mail') }}</title>
     
-    {{-- Script per la dark mode (Resta invariato, è perfetto!) --}}
+    {{-- Script per la dark mode --}}
     <script>
         (function() {
             const appearance = '{{ $appearance ?? "system" }}';
@@ -20,7 +20,7 @@
             }
         })();
     </script>
-
+    
     {{-- Stili per il background (Prevengono i flash bianchi al caricamento) --}}
     <style>
         html {
