@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'getCampagna']);
     Route::put('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'update']);
     Route::delete('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'delete']);
+    Route::get('dashboard/campagna/{id}/invia-test', [App\Http\Controllers\CampagnaController::class, 'inviaTest']);
 
 
     // rotte per i template - TemplateController

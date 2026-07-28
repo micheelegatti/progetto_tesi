@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Template;
 use App\Models\Campagna;
 use App\Enum\StatoCampagna;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CampagnaMail;
 
 class CampagnaController extends Controller
 {
@@ -89,6 +91,17 @@ class CampagnaController extends Controller
     {
         $campagna = Campagna::findOrFail($id);
         $campagna->delete();
+
+        return redirect(url('dashboard/campagna'));
+    }
+
+    //metodo d'invio della mail (modalità test)
+    public function inviaTest($id)
+    {
+        $campagna = Campagna::findOrFail($id);
+
+        // Invia l'email (finirà su Mailpit grazie alla configurazione nel .env)
+        Mail::to('test@tuodominio.it')->send(new CampagnaMail($campagna));
 
         return redirect(url('dashboard/campagna'));
     }
