@@ -40,7 +40,7 @@
                                 @if($campagna->stato === 'sent') bg-emerald-100 text-emerald-700 
                                 @elseif($campagna->stato === 'scheduled') bg-blue-100 text-blue-700 
                                 @else bg-amber-100 text-amber-700 @endif">
-                                {{ ucfirst($campagna->stato) }}
+                                {{ ucfirst($campagna->stato->value) }}
                             </span>
                         </td>
                         <td class="p-4 text-stone-500">{{ $campagna->created_at->format('d/m/Y') }}</td>
@@ -50,6 +50,20 @@
                                 class="inline-block bg-stone-100 hover:bg-stone-200/80 text-stone-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
                                 Modifica
                             </a>
+                            <form action="{{ url('dashboard/campagna/' . $campagna->id) }}" method="POST" class="inline" 
+                                onsubmit="return confirm('{{ 
+                                    $campagna->stato === App\Enum\StatoCampagna::InvioProgrammato 
+                                        ? 'Attenzione: questa campagna ha un invio programmato. Sei sicuro di volerla eliminare?'
+                                        : ($campagna->stato === App\Enum\StatoCampagna::Inviata 
+                                            ? 'Attenzione: questa campagna è già stata inviata. Eliminandola perderai tutte le statistiche collegate. Sei sicuro di voler procedere?' 
+                                            : 'Sei sicuro di voler eliminare questa bozza?') 
+                                }}');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 dark:bg-red-950/50 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 text-xs font-semibold rounded-lg transition">
+                                    Elimina
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty

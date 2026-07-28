@@ -37,6 +37,14 @@
                                 class="inline-block bg-stone-100 hover:bg-stone-200/80 text-stone-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
                                 Modifica
                             </a>
+                            <form action="{{ url('dashboard/template/' . $template->id) }}" method="POST" class="inline" onsubmit="return confirm('Sei sicuro di voler eliminare questo template?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                                    class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 dark:bg-red-950/50 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 text-xs font-semibold rounded-lg transition">
+                                Elimina
+                            </button>
+                        </form>
                         </td>
                     </tr>
                 @empty

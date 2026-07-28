@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Template;
 use App\Models\Campagna;
+use App\Enum\StatoCampagna;
 
 class CampagnaController extends Controller
 {
@@ -37,7 +38,7 @@ class CampagnaController extends Controller
             'user_id' => auth()->id(),      // Associa il template all'utente loggato
             'name' => $validated['name'],
             'template_id' => $template->id,
-            'stato' => 'bozza',
+            'stato' => StatoCampagna::Bozza->value,
             'content' => $template->content, //Salvo la copia del content del template
         ]);
 
@@ -81,5 +82,14 @@ class CampagnaController extends Controller
             'message' => 'Campagna aggiornata con successo!',
             'template' => $campagna
         ]);
+    }
+
+    //metodo per eliminare una campagna
+    public function delete($id)
+    {
+        $campagna = Campagna::findOrFail($id);
+        $campagna->delete();
+
+        return redirect(url('dashboard/campagna'));
     }
 }

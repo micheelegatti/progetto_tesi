@@ -138,6 +138,7 @@ class DestinatariController extends Controller
             'nuova_lista_nome' => 'nullable|string|max:255',
         ]);
 
+        //recupero file e apertura in modalità lettura
         $file = $request->file('csv_file');
         $handle = fopen($file->getRealPath(), 'r');
         
@@ -148,14 +149,16 @@ class DestinatariController extends Controller
 
         // Legge riga per riga il CSV (Formato atteso: Nome, Cognome, Email)
         while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+            //Colonne < 3
             if (count($row) < 3) continue;
 
             $nome = trim($row[0]);
             $cognome = trim($row[1]);
             $email = trim($row[2]);
 
+            //Controllo e validazione email e salto le righe con email non valide
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                continue; // Salta le email non valide
+                continue;
             }
 
             // Crea o aggiorna il contatto in base all'email (evita duplicati)
@@ -170,7 +173,7 @@ class DestinatariController extends Controller
 
             $importedIds[] = $destinatario->id;
         }
-        fclose($handle);
+        fclose($handle);    //chiusura
 
         // Gestione della lista (Gruppo)
         $listaId = $request->lista_id;

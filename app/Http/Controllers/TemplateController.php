@@ -78,4 +78,13 @@ class TemplateController extends Controller
         // Restituisce la vista Blade dell'editor passando il template
         return view('builderTemplate', compact('template'));
     }
+
+    //Metodo per eliminare un template
+    public function delete($id)
+    {
+        $template = Template::findOrFail($id);
+        $template->delete();
+
+        return redirect(url('dashboard/template'));
+    }
 }

@@ -25,6 +25,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('dashboard/campagna/store', [App\Http\Controllers\CampagnaController::class, 'storeInfo']);
     Route::get('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'getCampagna']);
     Route::put('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'update']);
+    Route::delete('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'delete']);
+
 
     // rotte per i template - TemplateController
     Route::get('dashboard/template', [App\Http\Controllers\TemplateController::class, 'index'])->name('template');
@@ -32,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('dashboard/template', [App\Http\Controllers\TemplateController::class, 'store']);
     Route::get('dashboard/template/{id}/modifica', [App\Http\Controllers\TemplateController::class, 'edit']);
     Route::put('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'update']);
+    Route::delete('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'delete']);
 
     //rotte per la sezione destinatari
     //pagina contatti come landingPage
