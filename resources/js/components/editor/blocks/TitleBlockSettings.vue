@@ -115,7 +115,7 @@ type Align = 'left'| 'center'| 'right'| 'justify'
           <select v-model="blockSelected.style!.wordBreak"
             class="border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-blue-400 bg-white">
             <option value="normal">Normal</option>
-            <option value="break-all">Break All</option>
+            <option value="break-word">Break Word</option>
           </select>
         </label>
       </div>

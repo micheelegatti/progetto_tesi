@@ -48,6 +48,17 @@ const props = defineProps<{
             <input v-model.number="blockSelected.style!.height" type="number" min="0" max="100"
             class="border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-blue-400" />
         </label>
+        <label class="flex flex-col gap-1 mb-2">
+          <span class="text-xs text-gray-500">Altezza Massima (px)</span>
+          <input
+            v-model.number="blockSelected.style!.maxHeight"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Es. 300"
+            class="border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-blue-400"
+          />
+        </label>
         <label class="flex flex-col gap-1">
           <span class="text-xs text-gray-500">Object-fit</span>
           <select v-model="blockSelected.style!.objectFit"
@@ -71,8 +82,8 @@ const props = defineProps<{
                 <option value='center center '>Centrato</option>
                 <option value="right center">Centrato a destra</option>
                 <option value='left bottom'>In basso a sinistra</option>
-                <option value="center top">In basso al centro</option>
-                <option value="right center">In basso a destra</option>
+                <option value="center bottom">In basso al centro</option>
+                <option value="right bottom">In basso a destra</option>
             </select>
           </label>
         </div>

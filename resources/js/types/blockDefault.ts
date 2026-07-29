@@ -16,7 +16,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
             color: '#000000',
             fontWeight: 600,        
             lineHeight: 1.25,       //no unità di misura
-            wordBreak: 'break-all',
+            wordBreak: 'normal',
             
             textAlign: 'center',
             fontFamily: 'Arial',
@@ -38,7 +38,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
             fontSize: 14,
             color: '#444444',
             lineHeight: 1.5,
-            wordBreak: 'break-all',
+            wordBreak: 'normal',
             textAlign: 'left',
             fontFamily: 'Arial',
             margin: {top: 0, bottom: 0, right: 0, left:0},
@@ -65,7 +65,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 width: 0,
                 color: '#000',
                 style: 'solid',
-                radius: 8,
+                radius: 0,
             },
             boxShadow: {
                 offsetX: 0,
@@ -161,12 +161,11 @@ export const blockDefaults: Record<Block['type'], Block> = {
         id: 0,
         type: 'container',
         style: {
-            backgroundColor: '#FFFF',
             border: {
                 width: 0,     // px
                 style: 'dashed',
                 color: '#d1d5db', 
-                radius: 8,    // px
+                radius: 0,    // px
             },
             padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
@@ -193,7 +192,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 width: 0,     // px
                 style: 'dashed',
                 color: '#d1d5db', 
-                radius: 8,    // px
+                radius: 0,    // px
             },
             padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
@@ -220,7 +219,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 width: 0,     // px
                 style: 'dashed',
                 color: '#d1d5db', 
-                radius: 8,    // px
+                radius: 0,    // px
             },
             padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
@@ -247,7 +246,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 width: 0,     // px
                 style: 'dashed',
                 color: '#d1d5db', 
-                radius: 8,    // px
+                radius: 0,    // px
             },
             padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem

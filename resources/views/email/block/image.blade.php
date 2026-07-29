@@ -50,23 +50,28 @@
         $imageSrc = filter_var($rawSrc, FILTER_VALIDATE_URL) ? $rawSrc : asset(ltrim($rawSrc, '/'));
     }
 
-    // 2. Stili specifici per il TAG <IMG> interno (Larghezza, Altezza, Object-fit e Position)
+    // 2. Stili specifici per il TAG <IMG> interno (Larghezza, Altezza, Max-Height, Object-fit e Position)
     $imgStyles = [];
     $imgStyles[] = "display: inline-block";
     $imgStyles[] = "max-width: 100%"; // Sicurezza mobile per evitare sbordamenti
 
-    // Gestione larghezza (se impostata nel Vue, altrimenti 100% fluida)
+    // Gestione larghezza
     if (isset($style['width'])) {
         $imgStyles[] = "width: {$style['width']}%";
     } else {
         $imgStyles[] = "width: 100%";
     }
 
-    // Gestione altezza (nel tuo Vue è in percentuale, ma nelle email la gestiamo in pixel o auto per non deformarla)
+    // Gestione altezza
     if (isset($style['height']) && $style['height'] > 0) {
-        $imgStyles[] = "height: {$style['height']}px";
+        $imgStyles[] = "height: {$style['height']}%";
     } else {
         $imgStyles[] = "height: auto";
+    }
+
+    // --- AGGIUNTA MAX-HEIGHT ---
+    if (isset($style['maxHeight']) && $style['maxHeight'] > 0) {
+        $imgStyles[] = "max-height: {$style['maxHeight']}px";
     }
 
     if (!empty($style['objectFit'])) {

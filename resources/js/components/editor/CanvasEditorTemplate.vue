@@ -88,7 +88,7 @@ function onDrop(e: DragEvent, dropIndex?: number) {
             v-else
             v-model="localBlocks"
             @update:model-value="emit('update:blocks', $event)"
-            class="flex flex-col gap-4 max-w-5xl mx-auto min-h-[500px] p-2"
+            class="flex flex-col gap-4 max-w-5xl mx-auto min-h-[500px]"
             group="root-blocks"
             :animation="150"
             filter=".no-drag"
@@ -96,7 +96,7 @@ function onDrop(e: DragEvent, dropIndex?: number) {
             <div
                 v-for="(block, index) in localBlocks"
                 :key="block.id"
-                class="relative group rounded-lg border transition-all w-full select-none"
+                class="relative group border transition-all w-full select-none rounded-none"
                 :class="[
                     // Classe no-drag sui tre blocchi fissi
                     [111111, 555555, 999999].includes(block.id) ? 'no-drag' : '',

@@ -68,18 +68,16 @@ function onDrop(e: DragEvent, currentBlock: Block) {
 <template>
     <main class="flex-1 bg-gray-100 overflow-y-auto p-8 h-full">
         <!-- Contenitore statico dei blocchi di root -->
-        <div class="flex flex-col gap-4 max-w-5xl mx-auto min-h-[500px] p-2">
+        <div class="flex flex-col gap-4 max-w-5xl mx-auto min-h-[500px]">
             <div
                 v-for="block in props.blocks"
                 :key="block.id"
-                class="relative group rounded-lg border transition-all w-full select-none"
+                class="relative group rounded-none border transition-all w-full select-none"
                 :class="[
-                    // Sfondo bianco per il 555555, sfondo grigino (stone-100) per tutti gli altri blocchi di root
                     block.id === 555555 
                         ? 'bg-white cursor-pointer'
                         : 'bg-white cursor-not-allowed' ,
                     
-                    // Mostra il bordo blu di selezione SOLO ed esclusivamente se il blocco è il 555555
                     selectedId === block.id && block.id === 555555
                         ? 'border-blue-500 border-[1.5px] shadow-sm'
                         : 'border-gray-200'
@@ -92,7 +90,7 @@ function onDrop(e: DragEvent, currentBlock: Block) {
                 }"
                 @click.stop="block.id === 555555 ? emit('select', block) : null"
             >
-                <!-- Etichetta per tipo blocco -->
+                <!-- Etichetta per tipo blocco (visibile se non è 555555) -->
                 <div 
                     v-if="![555555].includes(block.id)"
                     class="absolute -top-3 left-3 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider z-20 pointer-events-none transition-opacity bg-stone-800 text-white opacity-0 group-hover:opacity-100"
@@ -101,59 +99,20 @@ function onDrop(e: DragEvent, currentBlock: Block) {
                 </div>
 
                 <div class="p-4">
-                    <!-- Blocco Content -->
-                    <div 
-                        v-if="block.id === 555555"
-                        class="flex flex-col gap-2"
-                        @dragover="onDragOver"
-                        @drop.stop="onDrop($event, block)"
-                    >
-                        <VueDraggable
-                            v-if="block.children"
-                            v-model="block.children"
-                            @update:model-value="(children: Block[]) => emit('update-children', block, children)"
-                            class="flex flex-col gap-3 min-h-[150px] p-2 bg-transparent"
-                            group="nested-blocks"
-                            :animation="150"
-                        >
-                            <div
-                                v-for="child in block.children"
-                                :key="child.id"
-                                class="p-3 bg-white rounded border border-stone-200 cursor-pointer relative group/child"
-                                :class="{ 'border-blue-500 ring-1 ring-blue-500': selectedId === child.id }"
-                                @click.stop="emit('select', child)"
-                            >
-                                <button
-                                    v-if="selectedId === child.id"
-                                    class="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded bg-white border border-stone-200 text-stone-500 hover:text-red-500 text-xs z-10 shadow-sm"
-                                    @click.stop="emit('delete', child.id)"
-                                >✕</button>
-
-                                <component 
-                                    :is="componentMap[child.type]" 
-                                    :block="child"
-                                    :selected-id="selectedId"
-                                    @select="(b: Block) => emit('select', b)"
-                                    @delete="(id: number) => emit('delete', id)"
-                                    @drop-block="(targetBlock: Block, type: Block['type']) => emit('drop-block-in-container', targetBlock, type)"
-                                    @update:children="(children: Block[]) => emit('update-children', child, children)"
-                                />
-                            </div>
-                        </VueDraggable>
-                    </div>
-
-                    <!-- Componenti di root -->
+                    <!-- 
+                      USIAMO IL COMPONENTE DINAMICO ANCHE PER IL 555555! 
+                      In questo modo erediterà sfondi, bordi, padding e margini impostati dal SettingsPanel.
+                    -->
                     <component 
-                        v-else
                         :is="componentMap[block.type]" 
                         :block="block"
                         :selected-id="selectedId"
-                        :is-locked="true"
-                        class="cursor-not-allowed"
+                        @dragover.prevent="onDragOver"
+                        @drop.stop="onDrop($event, block)"
+                        @select="(b: Block) => block.id === 555555 ? emit('select', b) : null"
+                        @delete="(id: number) => emit('delete', id)"
                         @drop-block="(targetBlock: Block, type: Block['type']) => emit('drop-block-in-container', targetBlock, type)"
                         @update:children="(children: Block[]) => emit('update-children', block, children)"
-                        @select="(b: Block) => {}"
-                        @delete="(id: number) => emit('delete', id)"
                     />
                 </div>
             </div>

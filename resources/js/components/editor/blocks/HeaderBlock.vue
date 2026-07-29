@@ -82,6 +82,7 @@ function onDrop(e: DragEvent) {
         data-container
         :style="{
             minHeight: block.style?.minHeight + 'vh',
+            backgroundColor: block.style?.backgroundColor,
 
             borderRadius: block.style?.border?.radius + 'px',
             borderWidth: block.style?.border?.width + 'px',
@@ -105,7 +106,7 @@ function onDrop(e: DragEvent) {
                 ${block.style?.boxShadow?.spreadRadius ?? 0}px 
                 ${block.style?.boxShadow?.color ?? 'rgba(0,0,0,0)'}`
         }"
-        class="w-full relative border border-stone-200 bg-stone-50/40 rounded-xl"
+        class="w-full relative border border-stone-200 bg-stone-50/40 rounded-none"
         @dragover="onDragOver"
         @drop="onDrop"
     >
@@ -122,12 +123,12 @@ function onDrop(e: DragEvent) {
                 flexWrap: block.layout?.flexWrap,
                 alignContent: block.layout?.alignContent
             }"
-            class="w-full min-h-[60px] p-2"
+            class="w-full min-h-[60px]"
         >
             <div
                 v-for="child in children"
                 :key="child.id"
-                class="relative group border rounded-lg bg-white transition"
+                class="relative group border transition rounded-none"
                 :class="[
                     selectedId === child.id 
                         ? 'border-blue-500 ring-1 ring-blue-500 cursor-pointer' 

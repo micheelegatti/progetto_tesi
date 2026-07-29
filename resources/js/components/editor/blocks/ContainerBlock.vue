@@ -80,6 +80,8 @@ function onDrop(e: DragEvent) {
         data-container
         :style="{
             minHeight: block.style?.minHeight + 'vh',
+            backgroundColor: block.style?.backgroundColor,
+
 
             borderRadius: block.style?.border?.radius + 'px',
             borderWidth: block.style?.border?.width + 'px',
@@ -120,12 +122,12 @@ function onDrop(e: DragEvent) {
                 flexWrap: block.layout?.flexWrap,
                 alignContent: block.layout?.alignContent
             }"
-            class="w-full min-h-[50px] p-2"
+            class="w-full min-h-[50px] p-3"
         >
             <div
                 v-for="child in children"
                 :key="child.id"
-                class="relative group border rounded-lg bg-white transition"
+                class="relative group border transition"
                 :class="[
                     selectedId === child.id 
                         ? 'border-blue-500 ring-1 ring-blue-500 cursor-pointer' 

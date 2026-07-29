@@ -13,7 +13,11 @@ defineProps<{ block: Block }>()
         :alt="block.props.alt" 
         :style="{
             width: (block.style?.width ?? 100) + '%',
-            height: 'auto',
+            
+            /* GESTIONE ALTEZZA DINAMICA PER L'OBJECT-FIT */
+            height: block.style?.height ? block.style?.height + '%' : 'auto',
+            maxHeight: block.style?.maxHeight ? block.style?.maxHeight + 'px' : 'none',
+            
             maxWidth: '100%',
             objectFit: block.style?.objectFit ?? 'contain',
             objectPosition: block.style?.objectPosition ?? 'center',

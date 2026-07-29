@@ -25,6 +25,7 @@ export interface Block {
         height?: number
         maxWidth?: number
         minHeight?: number
+        maxHeight?: number
         textAlign?: 'left' | 'center' | 'right' | 'justify'
         backgroundColor?: string
         backgroundImage?: string
@@ -37,7 +38,7 @@ export interface Block {
         color?: string
         fontWeight?: number | string
         lineHeight?: number,
-        wordBreak?: 'normal' | 'break-all'
+        wordBreak?: 'normal' | 'break-word'
         border?: {
             width?: number
             color?: string
@@ -56,7 +57,7 @@ export interface Block {
             color?: string
         }
         objectFit?: 'fill' | 'cover' | 'contain' | 'scale-down' | 'none'
-        objectPosition?: 'left top' | 'center top' | 'right top' | 'left center' | 'center center' | 'tight center' | 'left bottom' | 'center bottom' | 'right bottom'
+        objectPosition?: 'left top' | 'center top' | 'right top' | 'left center' | 'center center' | 'right center' | 'left bottom' | 'center bottom' | 'right bottom'
         opacity?: number
         overflow?: 'hidden' | 'auto' | 'visible'
 
