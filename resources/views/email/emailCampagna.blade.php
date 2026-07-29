@@ -6,6 +6,8 @@
     <title>{{ $campagna->name ?? 'Campagna' }}</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Arial, sans-serif;">
+    
+    <!--CENTRATURA PER EMAIL-->
     <center style="width: 100%; background-color: #f4f4f5; table-layout: fixed;">
         <div style="max-width: 600px; background-color: #ffffff; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
             

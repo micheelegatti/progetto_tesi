@@ -75,7 +75,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 color: 'rgba(0, 0, 0)',
             },
         },
-        layout: {display: 'none'}
+        layout: {display: 'block'}
     },
     //sistemato
     button: {
@@ -130,8 +130,8 @@ export const blockDefaults: Record<Block['type'], Block> = {
             borderTopWidth: 1,
             borderTopColor: '#808080',
             padding: {
-                top: 1,
-                bottom: 1,
+                top: 0,
+                bottom: 0,
                 right: 0,
                 left: 0,
             },
@@ -156,7 +156,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
         }
     },
 
-    //sistemato
+    //Blocchi contenitori
     container: {
         id: 0,
         type: 'container',
@@ -168,14 +168,14 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 color: '#d1d5db', 
                 radius: 8,    // px
             },
-            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
             minHeight: 10,   // %
             width: 100,
         },
         layout: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             alignItems: 'center',     
             justifyContent: 'center',
             gap: 10,    //px
@@ -195,14 +195,14 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 color: '#d1d5db', 
                 radius: 8,    // px
             },
-            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
             minHeight: 10,   // %
             width: 100,
         },
         layout: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             alignItems: 'center',     
             justifyContent: 'center',
             gap: 10,    //px
@@ -222,14 +222,14 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 color: '#d1d5db', 
                 radius: 8,    // px
             },
-            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
             minHeight: 10,   // %
             width: 100,
         },
         layout: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             alignItems: 'center',     
             justifyContent: 'center',
             gap: 10,    //px
@@ -249,14 +249,14 @@ export const blockDefaults: Record<Block['type'], Block> = {
                 color: '#d1d5db', 
                 radius: 8,    // px
             },
-            padding: {top: 1, bottom: 1, right: 1, left:1},     // rem
+            padding: {top: 0, bottom: 0, right: 0, left:0},     // rem
             margin: { top: 0, bottom: 0, right: 0, left: 0},  //rem
             minHeight: 10,   // %
             width: 100,
         },
         layout: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             alignItems: 'center',     
             justifyContent: 'center',
             gap: 10,    //px
