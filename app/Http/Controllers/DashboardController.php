@@ -8,6 +8,7 @@ class DashboardController extends Controller
 {
     //Chiamato al login per andare su dashboard
     public function index(){
+        
         return view('dashboard');
     }
 }
