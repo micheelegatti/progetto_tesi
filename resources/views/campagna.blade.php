@@ -45,7 +45,7 @@
                         </td>
                         <td class="p-4 text-stone-500">{{ $campagna->created_at->format('d/m/Y') }}</td>
                         <td class="p-4 text-right space-x-2">
-                            <a href="{{ url('dashboard/campagna/' . $campagna->id. '/invia-test') }}" 
+                            <a href="{{ url('dashboard/campagna/' .$campagna->id. '/riepilogo') }}" 
                                 class="inline-block bg-stone-100 hover:bg-stone-200/80 text-stone-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
                                 Invia
                             </a>

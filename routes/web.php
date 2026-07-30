@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'getCampagna']);
     Route::put('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'update']);
     Route::delete('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'delete']);
+    //Rotta per test funzionante con MailPit
     Route::get('dashboard/campagna/{id}/invia-test', [App\Http\Controllers\CampagnaController::class, 'inviaTest']);
 
 
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/destinatari/liste/{id}/edit', [App\Http\Controllers\ListaController::class, 'edit']);
     Route::put('dashboard/destinatari/liste/{id}', [App\Http\Controllers\ListaController::class, 'update']);
     Route::delete('dashboard/destinatari/liste/{id}', [App\Http\Controllers\ListaController::class, 'delete']);
+
+    //Rotte per Invio
+    //Ordinario
+    Route::get('dashboard/campagna/{id}/riepilogo', [App\Http\Controllers\InvioController::class, 'index']);
+    Route::post('dashboard/campagna/invio', [App\Http\Controllers\InvioController::class, 'store']);
 });
 
 require __DIR__.'/settings.php';
