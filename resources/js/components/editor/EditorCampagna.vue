@@ -28,6 +28,7 @@ const props = defineProps<{
 const campagnaID = props.campagna?.id
 const campagnaName = ref(props.campagna?.name)
 const isSaving = ref(false)
+const isSendingTest = ref(false)
 
 //Id per i miei blocchi fissi del template(Header, Content e Footer)
 //Header e footer potrebbero non servire
@@ -150,6 +151,25 @@ async function saveCampagna() {
         isSaving.value = false
     }
 }
+
+// Funzione per l'invio rapido del test
+async function inviaTestRapido() {
+    if (!props.campagna?.id) return
+    isSendingTest.value = true
+    try {
+        // Chiamata al metodo di invio test che hai nel controller
+        const url = `/dashboard/campagna/${props.campagna.id}/invia-test`
+        const response = await axios.get(url)
+        
+        console.log('Test inviato con successo!', response.data)
+        alert('Email di test inviata con successo!')
+    } catch (error) {
+        console.error('Errore durante l invio del test:', error)
+        alert("Errore durante l'invio dell'email di test.")
+    } finally {
+        isSendingTest.value = false
+    }
+}
 </script>
 
 <template>
@@ -167,15 +187,24 @@ async function saveCampagna() {
                     placeholder="Nome del template..."
                 >
             </div>
-
-            <!-- Pulsante di salvataggio -->
-            <button 
-                @click="saveCampagna" 
-                :disabled="isSaving"
-                class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition disabled:opacity-50 shadow-sm flex items-center gap-2"
-            >
-                <span>{{ isSaving ? 'Salvataggio...' : 'Salva Template' }}</span>
-            </button>
+            <div class="flex items-center gap-2">
+                <button 
+                    @click="inviaTestRapido" 
+                    :disabled="isSendingTest"
+                    class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 dark:bg-stone-800 dark:hover:bg-stone-700 dark:text-stone-300 text-sm font-medium rounded-lg transition disabled:opacity-50 border border-stone-200 dark:border-stone-700 flex items-center gap-2"
+                    title="Invia una mail di prova"
+                >
+                    <span>{{ isSendingTest ? 'Invio in corso...' : 'Invia Test' }}</span>
+                </button>
+                <!-- Pulsante di salvataggio -->
+                <button 
+                    @click="saveCampagna" 
+                    :disabled="isSaving"
+                    class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition disabled:opacity-50 shadow-sm flex items-center gap-2"
+                >
+                    <span>{{ isSaving ? 'Salvataggio...' : 'Salva Template' }}</span>
+                </button>
+            </div>
         </header>
 
         <!-- Contenitore dei 3 componenti principali (Sidebar, Canvas, Settings) -->
