@@ -1,4 +1,4 @@
-Guida all'installazione 
+#Guida all'installazione sistema custom Newsletter
 
 I seguenti comandi andranno copiati sul terminale
 
@@ -6,10 +6,10 @@ I seguenti comandi andranno copiati sul terminale
 git clone https://github.com/micheelegatti/progetto_tesi.git
 cd progetto_tesi
 
---Copia il file di configurazioni
+**Copia il file di configurazioni** 
 cp .env.example .env
 
---Installa le dipendenze 
+**Installa le dipendenze** 
 composer install
 
 I seguenti comandi sono eseguili solo se sail è salvata nelle variabili d'ambiente 
