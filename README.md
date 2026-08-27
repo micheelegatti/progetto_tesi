@@ -9,7 +9,7 @@ Clona la repository \
 Duplica il file di configurazioni e rinomina .env\
 *cp .env.example .env*
 
-Creare container Docker: \ 
+Creare container Docker:\ 
 *docker compose up -d* 
 
 Installare le dipendenze \
