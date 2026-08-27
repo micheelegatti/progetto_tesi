@@ -15,16 +15,16 @@ Installa le dipendenze \
 
 Configura applicazione e database \
 *sail artisan key:generate* \
-*sail artisan migrate --seed* \
+*sail artisan migrate --seed* 
 
 Avvio front-end 
 *sail npm install*
 *sail npm run dev*
 
 ## Avvio progetto
-L'applicazione è su http://localhost:8080/ \
+L'applicazione è su http://localhost:8080/ 
 Il servizio di Mailpit con le email di prova invece è su http://localhost:8025/ \
 
 Utente admin generato tramite Seed del database \
 Username: admin@test \
-Password: password123 \
+Password: password123 
