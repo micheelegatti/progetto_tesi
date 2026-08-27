@@ -69,6 +69,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/campagna/{id}/riepilogo', [App\Http\Controllers\InvioController::class, 'index']);
     Route::post('dashboard/campagna/invio', [App\Http\Controllers\InvioController::class, 'store']);
 
+    //Rotte per le statistiche - StatisticheController
+    Route::get('dashboard/statistiche', [App\Http\Controllers\StatisticheController::class, 'index'])->name('statistiche');
+    Route::get('dashboard/statistiche/{id}', [App\Http\Controllers\StatisticheController::class, 'statisticheInvio'])->name('statistiche');
+
     //Rotte per ricezione webhook
     Route::post('/webhooks/brevo', [App\Http\Controllers\WebhookController::class, 'handleBrevo']);
 });

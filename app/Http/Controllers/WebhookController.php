@@ -68,6 +68,8 @@ class WebhookController extends Controller
                     'is_disiscritto' => true,
                     'disiscritto_il' => $date
                 ]);
+                // Imposto lo stato del contatto a disiscritto
+                Destinatario::where('email', $email)->update(['is_disiscritto' => true]);
                 break;
 
             case 'complaint':

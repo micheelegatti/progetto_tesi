@@ -53,5 +53,6 @@ class BrevoMail extends Mailable
     {
         return new Content(
             view: 'email.emailCampagna',
+        );
     }
 }
