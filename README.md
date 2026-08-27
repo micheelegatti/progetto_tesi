@@ -9,11 +9,11 @@ Clona la repository \
 Duplica il file di configurazioni e rinomina .env\
 *cp .env.example .env*
 
-Creare container Docker: 
+Creare container Docker: \ 
 *docker compose up -d* 
 
 Installare le dipendenze \
-Se si ha WSL integrata o Linux/Mac usare
+Se si ha WSL integrata o Linux/Mac usare:\
 *./vendor/bin/sail composer install* \
 Se hai configurato Sail nelle variabili d'ambiente, puoi usare direttamente *sail composer install* \
 Se usi Windows con Powershell: \
@@ -27,10 +27,9 @@ Se non usi Sail, usa l'equivalente: \
 *docker compose exec laravel.test artisan migrate --seed*
 
 
-Avvio front-end 
+Avvio front-end:\ 
 *sail npm install* \
-*sail npm run dev*
-
+*sail npm run dev*\
 Se non usi Sail, usa l'equivalente: \
 *docker compose exec laravel.test npm install* \
 *docker compose exec laravel.test npm run dev*
