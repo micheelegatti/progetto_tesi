@@ -6,7 +6,7 @@ Clona la repository \
 *git clone https://github.com/micheelegatti/progetto_tesi.git* \
 *cd progetto_tesi*
 
-Copia il file di configurazioni \
+Dubplica il file di configurazioni e rinomina .env\
 *cp .env.example .env*
 
 Installa le dipendenze \
