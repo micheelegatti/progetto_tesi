@@ -13,12 +13,16 @@ Installa le dipendenze \
 *docker compose up -d* \
 *docker compose exec laravel.test composer install*
 
+I seguenti comandi sono eseguili solo se sail è salvata nelle variabili d'ambiente \
+Sennò utilizzare    *./vendor/bin/sail*  al posto di *sail*
+
+
 Configura applicazione e database \
 *sail artisan key:generate* \
 *sail artisan migrate --seed* 
 
 Avvio front-end 
-*sail npm install*
+*sail npm install* \
 *sail npm run dev*
 
 ## Avvio progetto
