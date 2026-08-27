@@ -1,34 +1,28 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Invio;
 use App\Models\Campagna;
 use App\Models\Liste;
 use App\Models\Destinatario;
+use App\Models\LogInvio; 
 use App\Enum\TipoInvio;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\CampagnaMail;
+use App\Mail\BrevoMail; 
 use Illuminate\Http\Request;
 
 class InvioController extends Controller
 {
-    /**
-     * Mostra il form per la configurazione dell'invio di una campagna
-     */
     public function index($id)
     {
         $campagna = Campagna::findOrFail($id);
-        //Recupera tutte le liste destinatari
         $liste = Liste::all();
 
         return view('riepilogoInvio', compact('campagna', 'liste'));
     }
 
-    //Metodo per salvare a database i metadati dell'invio, e inviare tramite il canale la campagna
     public function store(Request $request)
     {
-        // Validazione dei campi in italiano corrispondenti al form
         $validated = $request->validate([
             'campagna_id'    => 'required|exists:campagnas,id',
             'oggetto'        => 'required|string|max:255',
@@ -41,7 +35,7 @@ class InvioController extends Controller
             'liste_id.*'     => 'exists:listes,id',
         ]);
 
-        // Salvataggio diretto sul DB con le colonne in italiano
+        //Salvataggio della sessione d'invio
         $invioCampagna = Invio::create([
             'campagna_id'    => $validated['campagna_id'],
             'tipo'           => TipoInvio::Ordinario->value,
@@ -53,21 +47,28 @@ class InvioController extends Controller
             'email_risposta' => $validated['email_risposta'] ?? null,
         ]);
 
-        // Sincronizzazione delle liste multiple nella tabella pivot
-        $invioCampagna->listes()->sync($validated['liste_id']);
-
-        // Recupero della campagna e dei destinatari unici dalle liste selezionate
+        // Recupero della campagna
         $campagna = Campagna::findOrFail($validated['campagna_id']);
 
+        // Recupero dei destinatari unici dalle liste selezionate
         $destinatari = Destinatario::whereHas('liste', function ($query) use ($validated) {
             $query->whereIn('listes.id', $validated['liste_id']);
         })->get()->unique('id');
 
-        // Invio effettivo delle email
+        // Ciclo di invio
         foreach ($destinatari as $destinatario) {
-            Mail::to($destinatario->email)->send(new CampagnaMail($campagna, $invioCampagna));
-        }
+            
+            // Creiamo il log dell'invio e imposto come consegna (in attesa)
+            $logInvio = LogInvio::create([
+                'invio_id' => $invioCampagna->id,
+                'email_destinatario' => $destinatario->email,
+                'esito_consegna' => 'in_attesa',
+            ]);
 
-        return redirect(url('dashboard/campagna'));
+            // Passiamo campagna, invio e log al Mailable
+            Mail::to($destinatario->email)->send(new BrevoMail($campagna, $invioCampagna, $logInvio));
+        }
+        
+        return redirect(url('dashboard/campagna'))->with('success', 'Campagna avviata con successo!');
     }
 }

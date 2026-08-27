@@ -68,6 +68,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Ordinario
     Route::get('dashboard/campagna/{id}/riepilogo', [App\Http\Controllers\InvioController::class, 'index']);
     Route::post('dashboard/campagna/invio', [App\Http\Controllers\InvioController::class, 'store']);
+
+    //Rotte per ricezione webhook
+    Route::post('/webhooks/brevo', [App\Http\Controllers\WebhookController::class, 'handleBrevo']);
 });
 
 require __DIR__.'/settings.php';
