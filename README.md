@@ -10,7 +10,7 @@ Copia il file di configurazioni \
 *cp .env.example .env*
 
 Installa le dipendenze \
-*docker compose up -d*
+*docker compose up -d* \
 *docker compose exec laravel.test composer install*
 
 Configura applicazione e database \
