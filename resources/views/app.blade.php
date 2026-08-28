@@ -56,6 +56,14 @@
             </div>
             <div class="flex items-center gap-4">
                 <span class="text-sm font-semibold text-slate-700 dark:text-white">{{ auth()->user()->name ?? 'Utente Admin' }}</span>
+                {{-- Form  --}}
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" 
+                            class="px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-[#722e89] dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-[#f3e8f7] dark:bg-slate-800 dark:hover:bg-[#2a1033] rounded-lg transition">
+                        Esci
+                    </button>
+                </form>
             </div>
         </header>
 

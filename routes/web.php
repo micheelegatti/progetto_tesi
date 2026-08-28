@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //SOVRASCRIVIAMO IL LOGIN: Forza Laravel a mostrare la vista Blade invece di Inertia
@@ -12,6 +13,15 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
+//logout
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+
+    // Invalida la sessione e rigenera il token per sicurezza
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('login'); 
+})->name('logout');
 
 // ROTTE PRIVATE
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -37,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/template/{id}/modifica', [App\Http\Controllers\TemplateController::class, 'edit']);
     Route::put('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'update']);
     Route::delete('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'delete']);
+
+    //Rotta per gestione immagini con R2
+    Route::post('dashboard/immagini/store', [App\Http\Controllers\ImageController::class, 'store']);
 
     //rotte per la sezione destinatari
     //pagina contatti come landingPage
