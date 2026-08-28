@@ -10,6 +10,7 @@ import ButtonBlock  from '@/components/editor/blocks/ButtonBlock.vue'
 import DividerBlock from '@/components/editor/blocks/DividerBlock.vue'
 import HTMLBlock from '@/components/editor/blocks/HTMLBlock.vue'
 import ContainerBlock from './ContainerBlock.vue' 
+import SectionBlock    from '@/components/editor/blocks/SectionBlock.vue'
 
 const props = defineProps<{
     block: Block
@@ -34,7 +35,8 @@ const componentMap: Record<string, any> = {
     button:    ButtonBlock,
     divider:   DividerBlock,
     html:      HTMLBlock,
-    container: ContainerBlock 
+    container: ContainerBlock,
+    section:   SectionBlock,
 }
 
 const children = computed({
@@ -66,7 +68,7 @@ function onDrop(e: DragEvent) {
     }
 
     // Whitelist dei tipi ammessi dalla Sidebar
-    const validTypes = ['container', 'title', 'text', 'image', 'button', 'divider', 'html']
+    const validTypes = ['container', 'section', 'title', 'text', 'image', 'button', 'divider', 'html']
     if (!validTypes.includes(type)) {
         return
     }
