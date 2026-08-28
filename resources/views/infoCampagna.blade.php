@@ -50,11 +50,9 @@
             >
                 Annulla
             </a>
-            
-            {{-- 👇 2. Il bottone resta semplicemente di tipo submit per inviare il form --}}
             <button 
                 type="submit" 
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition"
+                class="px-4 py-2 bg-[#722e89] hover:bg-[#5e2272] text-white text-sm font-semibold rounded-lg shadow-sm transition"
             >
                 Salva e Procedi all'Editor
             </button>

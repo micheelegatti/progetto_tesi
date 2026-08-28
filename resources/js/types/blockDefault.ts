@@ -111,7 +111,7 @@ export const blockDefaults: Record<Block['type'], Block> = {
             fontSize: 18, 
             fontWeight: 500,
             fontFamily: 'Arial',
-            backgroundColor: '#378ADD',
+            backgroundColor: '#722e89',
             color: '#ffffff',
         },
     },

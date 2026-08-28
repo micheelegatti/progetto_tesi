@@ -71,7 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Rotte per le statistiche - StatisticheController
     Route::get('dashboard/statistiche', [App\Http\Controllers\StatisticheController::class, 'index'])->name('statistiche');
-    Route::get('dashboard/statistiche/{id}', [App\Http\Controllers\StatisticheController::class, 'statisticheInvio'])->name('statistiche');
+    Route::get('dashboard/statistiche/{id}', [App\Http\Controllers\StatisticheController::class, 'statisticheInvio']);
 
     //Rotte per ricezione webhook
     Route::post('/webhooks/brevo', [App\Http\Controllers\WebhookController::class, 'handleBrevo']);

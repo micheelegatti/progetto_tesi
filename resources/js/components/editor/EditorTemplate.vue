@@ -230,7 +230,7 @@ async function saveTemplate() {
             <button 
                 @click="saveTemplate" 
                 :disabled="isSaving"
-                class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition disabled:opacity-50 shadow-sm flex items-center gap-2"
+                class="px-5 py-2 bg-[#722e89] hover:bg-[#5e2272] text-white text-sm font-medium rounded-lg transition disabled:opacity-50 shadow-sm flex items-center gap-2"
             >
                 <span>{{ isSaving ? 'Salvataggio...' : 'Salva Template' }}</span>
             </button>

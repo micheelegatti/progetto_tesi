@@ -10,7 +10,7 @@
             <h1 class="text-2xl font-bold text-stone-900">{{ $invio->campagna->name ?? 'Campagna' }}</h1>
             <p class="text-sm text-stone-500">Oggetto: "{{ $invio->oggetto }}" • Spedito il {{ $invio->created_at->format('d/m/Y H:i') }}</p>
         </div>
-        <a href="{{ url()->previous() }}" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-lg transition">
+        <a href="{{ route('statistiche') }}" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-lg transition">
             ← Torna allo Storico
         </a>
     </div>
@@ -21,19 +21,19 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-1">
                 <span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Destinatari Totali</span>
-                <div class="text-2xl font-bold text-stone-900">{{ $totali }}</div>
+                <div class="text-2xl font-bold text-stone-600">{{ $totali }}</div>
             </div>
             <div class="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-1">
                 <span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Tasso di Consegna</span>
-                <div class="text-2xl font-bold text-emerald-600">{{ $deliveryRate }}%</div>
+                <div class="text-2xl font-bold text-stone-600">{{ $deliveryRate }}%</div>
             </div>
             <div class="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-1">
                 <span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Tasso di Apertura</span>
-                <div class="text-2xl font-bold text-blue-600">{{ $openRate }}%</div>
+                <div class="text-2xl font-bold text-stone-600">{{ $openRate }}%</div>
             </div>
             <div class="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-1">
                 <span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Tasso di Click</span>
-                <div class="text-2xl font-bold text-indigo-600">{{ $clickRate }}%</div>
+                <div class="text-2xl font-bold text-stone-600">{{ $clickRate }}%</div>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
     </div>
     
     {{-- Bottone per creare una nuova lista --}}
-    <a href="{{ url('dashboard/destinatari/liste/crea') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+    <a href="{{ url('dashboard/destinatari/liste/crea') }}" class="bg-[#722e89] hover:bg-[#5e2272] text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
         + Crea Nuova Lista
     </a>
 </div>

@@ -38,8 +38,8 @@ type AlignContent = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'sp
             :key="dir"
             class="flex-1 py-1 text-xs rounded border transition-colors"
             :class="blockSelected.layout!.flexDirection === dir
-              ? 'bg-blue-500 text-white border-blue-500'
-              : 'bg-white text-gray-500 border-gray-200 hover:border-blue-300'"
+              ? 'bg-[#722e89] text-white border-[#722e89]'
+              : 'bg-white text-gray-500 border-gray-200 hover:border-[#722e89]'"
             @click="blockSelected.layout && (blockSelected.layout.flexDirection = dir as Direction)"
           >
             {{ dir === 'row' ? 'Row ↔' : 'Column ↕' }}
@@ -57,8 +57,8 @@ type AlignContent = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'sp
             :key="val"
             class="flex-1 py-2 text-xs rounded border transition-colors"
             :class="blockSelected.layout!.justifyContent === val
-              ? 'bg-blue-500 text-white border-blue-500'
-              : 'bg-white text-gray-500 border-gray-200 hover:border-blue-300'"
+              ? 'bg-[#722e89] text-white border-[#722e89]'
+              : 'bg-white text-gray-500 border-gray-200 hover:border-[#722e89]'"
             @click="blockSelected.layout && (blockSelected.layout.justifyContent = val as Justify)"
           >
             {{
@@ -82,8 +82,8 @@ type AlignContent = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'sp
             :key="val"
             class="flex-1 py-1 text-xs rounded border transition-colors"
             :class="blockSelected.layout!.alignItems === val
-              ? 'bg-blue-500 text-white border-blue-500'
-              : 'bg-white text-gray-500 border-gray-200 hover:border-blue-300'"
+              ? 'bg-[#722e89] text-white border-[#722e89]'
+              : 'bg-white text-gray-500 border-gray-200 hover:border-[#722e89]'"
             @click="blockSelected.layout && (blockSelected.layout.alignItems = val as Align)"
           >
             {{
@@ -106,8 +106,8 @@ type AlignContent = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'sp
             :key="dir"
             class="flex-1 py-1 text-xs rounded border transition-colors"
             :class="blockSelected.layout!.flexWrap === dir
-              ? 'bg-blue-500 text-white border-blue-500'
-              : 'bg-white text-gray-500 border-gray-200 hover:border-blue-300'"
+              ? 'bg-[#722e89] text-white border-[#722e89]'
+              : 'bg-white text-gray-500 border-gray-200 hover:border-[#722e89]'"
             @click="blockSelected.layout && (blockSelected.layout.flexWrap = dir as Wrap)"
           >
             {{ dir === 'nowrap' ? 'No wrap ⮕' : 'Wrap ⤶' }}
@@ -126,8 +126,8 @@ type AlignContent = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'sp
             :key="val"
             class="flex-1 py-1 text-xs rounded border transition-colors"
             :class="blockSelected.layout!.alignContent === val
-              ? 'bg-blue-500 text-white border-blue-500'
-              : 'bg-white text-gray-500 border-gray-200 hover:border-blue-300'"
+              ? 'bg-[#722e89] text-white border-[#722e89]'
+              : 'bg-white text-gray-500 border-gray-200 hover:border-[#722e89]'"
             @click="blockSelected.layout && (blockSelected.layout.alignContent = val as AlignContent)"
           >
             {{

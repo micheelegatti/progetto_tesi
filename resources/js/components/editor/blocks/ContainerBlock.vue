@@ -64,7 +64,7 @@ function onDrop(e: DragEvent) {
     }
 
     // Whitelist dei tipi ammessi dalla Sidebar
-    const validTypes = ['container', 'title', 'text', 'image', 'button', 'divider', 'html']
+    const validTypes = ['container', 'section', 'title', 'text', 'image', 'button', 'divider', 'html']
     if (!validTypes.includes(type)) {
         return
     }

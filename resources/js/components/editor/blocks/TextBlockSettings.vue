@@ -79,8 +79,8 @@ const editorModules = {
             <button v-for="align in ['left', 'center', 'right', 'justify']" :key="align"
               class="flex-1 py-1 text-xs rounded border transition-colors"
               :class="blockSelected.style!.textAlign === align 
-                ? 'bg-blue-500 text-white border-blue-500' 
-                : 'bg-white text-gray-500 border-gray-200 hover:border-blue-300'"
+                ? 'bg-[#722e89] text-white border-[#722e89]' 
+                : 'bg-white text-gray-500 border-gray-200 hover:border-[#722e89]'"
               @click="blockSelected.style!.textAlign = align as any"
             >
               {{ align === 'left' ? '≡' : align === 'center' ? '≡' : align === 'right' ? '≡' : '≡' }}

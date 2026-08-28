@@ -10,7 +10,7 @@
             <h1 class="text-2xl font-bold text-stone-900">Le mie campagne</h1>
             <p class="text-sm text-stone-500">Gestisci e monitora l'invio delle tue campagne email</p>
         </div>
-        <a href="{{ url('dashboard/campagna/info') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition">
+        <a href="{{ url('dashboard/campagna/info') }}" class="bg-[#722e89] hover:bg-[#5e2272] text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition">
             Nuova Campagna
         </a>
     </div>

@@ -146,7 +146,7 @@
                 <a href="{{ url()->previous() }}" class="px-4 py-2 text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition">
                     Annulla
                 </a>
-                <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition shadow-sm">
+                <button type="submit" class="px-5 py-2 bg-[#722e89] hover:bg-[#5e2272] text-white text-sm font-medium rounded-lg transition shadow-sm">
                     Conferma e Procedi all'Invio
                 </button>
             </div>
