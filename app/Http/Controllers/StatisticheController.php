@@ -50,10 +50,10 @@ class StatisticheController extends Controller
         $invio = Invio::with('campagna', 'logInvii')->findOrFail($id);
 
         $totali = $invio->logInvii->count();
-        $consegnati = $invio->logInvii->where('esito_consegna', 'consegnato')->count();
+        $consegnati = $invio->logInvii->where('esito_consegna', 'Consegnato')->count();
         $aperti = $invio->logInvii->where('is_aperto', true)->count();
         $cliccati = $invio->logInvii->where('is_cliccato', true)->count();
-        $rimbalzati = $invio->logInvii->where('esito_consegna', 'rimbalzato')->count();
+        $rimbalzati = $invio->logInvii->where('esito_consegna', 'Rimbalzato')->count();
         
         // Nuove metriche di feedback negativo
         $disiscritti = $invio->logInvii->where('is_disiscritto', true)->count();

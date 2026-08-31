@@ -42,11 +42,6 @@ class WebhookController extends Controller
 
         // Casistiche dei webhook Marketing di Brevo
         switch ($event) {
-            case 'request':
-                $log->update([
-                    'esito_consegna' => 'Inviato',
-                ]);
-                break;
 
             case 'delivered':
                 $log->update([
@@ -61,6 +56,13 @@ class WebhookController extends Controller
                 ]);
                 break;
 
+            case 'blocked':
+                $log->update([
+                    'esito_consegna' => 'Invio Bloccato',
+                ]);
+                break;
+            
+            case 'unique_opened':
             case 'opened':
                 $log->update([
                     'is_aperto' => true,
@@ -78,7 +80,7 @@ class WebhookController extends Controller
             case 'hard_bounce':
             case 'soft_bounce':
                 $log->update([
-                    'esito_consegna' => 'rimbalzato'
+                    'esito_consegna' => 'Rimbalzato'
                 ]);
                 break;
 
