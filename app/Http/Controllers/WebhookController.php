@@ -1,34 +1,38 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LogInvio;
+use App\Models\Destinatario;
+use Illuminate\Support\Facades\Log;
 
 class WebhookController extends Controller
 {
-    //GESTIONE DEI WEBHOOK PER BREVO
+    // GESTIONE DEI WEBHOOK PER LE CAMPAGNE MARKETING DI BREVO
     public function handleBrevo(Request $request)
     {
+        // 1. Log di debug per vedere esattamente cosa arriva da Brevo
+        Log::info('Webhook Marketing Brevo ricevuto:', $request->all());
+
         $event = $request->input('event');
         $email = $request->input('email');
-        $date = $request->input('date') ?? now();
-        
-        // Recuperiamo l'ID del log passato tramite l'header personalizzato di Brevo
-        $logId = $request->input('X-Mailin-custom');
+        // Usiamo date_event come standard per le campagne marketing
+        $date = $request->input('date_event') ?? $request->input('date') ?? now();
 
-        // Cerchiamo il log in modo univoco tramite ID (fallback sull'email se manca)
-        $log = LogInvio::find($logId) ?? LogInvio::where('email_destinatario', $email)->latest()->first();
-
-        if (!$log) {
-            return response()->json(['status' => 'ignored', 'message' => 'Log non trovato'], 200);
+        if (!$email) {
+            return response()->json(['status' => 'ignored', 'message' => 'Email non presente nel payload'], 200);
         }
 
-        //Casisttiche dei webhook Brevo
-        switch ($event) {
-            case 'sent':
-                // Se era in attesa, lo consideriamo comunque tracciato
-                break;
+        // Cerchiamo il log più recente associato a quell'indirizzo email
+        $log = LogInvio::where('email_destinatario', $email)->latest()->first();
 
+        if (!$log) {
+            return response()->json(['status' => 'ignored', 'message' => 'Log non trovato per questa email'], 200);
+        }
+
+        // Casistiche dei webhook Marketing di Brevo
+        switch ($event) {
             case 'delivered':
                 $log->update([
                     'esito_consegna' => 'consegnato',
@@ -50,29 +54,22 @@ class WebhookController extends Controller
                 ]);
                 break;
 
-            case 'hardBounce':
-            case 'softBounce':
+            case 'hard_bounce':
+            case 'soft_bounce':
                 $log->update([
                     'esito_consegna' => 'rimbalzato'
                 ]);
-                break;
+                break;  
 
-            case 'blocked':
-                $log->update([
-                    'esito_consegna' => 'bloccato'
-                ]);
-                break;
-
-            case 'unsubscribed':
+            case 'unsubscribe':
                 $log->update([
                     'is_disiscritto' => true,
                     'disiscritto_il' => $date
                 ]);
-                // Imposto lo stato del contatto a disiscritto
+                // Aggiorna lo stato del contatto nella tabella destinatari
                 Destinatario::where('email', $email)->update(['is_disiscritto' => true]);
                 break;
 
-            case 'complaint':
             case 'spam':
                 $log->update([
                     'is_spam' => true

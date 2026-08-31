@@ -95,7 +95,7 @@
                     type="email" 
                     id="email_mittente" 
                     name="email_mittente" 
-                    value="{{ old('email_mittente', $invioCampagna->email_mittente ?? 'noreply@miodominio.it') }}"
+                    value="{{ old('email_mittente', $invioCampagna->email_mittente ?? 'noreply@tesimichele.softweb.srl') }}"
                     required
                     class="w-full px-3 py-2 text-sm border border-stone-300 dark:border-stone-700 rounded-lg bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >

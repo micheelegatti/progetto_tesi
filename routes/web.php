@@ -87,7 +87,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/statistiche/{id}', [App\Http\Controllers\StatisticheController::class, 'statisticheInvio']);
 
     //Rotte per ricezione webhook
-    Route::post('/webhooks/brevo', [App\Http\Controllers\WebhookController::class, 'handleBrevo']);
+    //Route::post('/webhooks/brevo', [App\Http\Controllers\WebhookController::class, 'handleBrevo']);
 });
 
 require __DIR__.'/settings.php';
