@@ -82,15 +82,21 @@
                                 {{ $log->email_destinatario }}
                             </td>
                             <td class="py-4 px-6">
-                                @if($log->esito_consegna === 'consegnato')
+                                @if($log->esito_consegna === 'Consegnato')
                                     <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-50 text-emerald-700 rounded-full">Consegnato</span>
-                                @elseif($log->esito_consegna === 'rimbalzato')
+                                @elseif($log->esito_consegna === 'Inviato')
+                                    <span class="px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-700 rounded-full">Inviato</span>
+                                @elseif($log->esito_consegna === 'In Attesa')
+                                    <span class="px-2.5 py-1 text-xs font-semibold bg-amber-50 text-amber-700 rounded-full">In Attesa</span>
+                                @elseif($log->esito_consegna === 'Rimbalzato')
                                     <span class="px-2.5 py-1 text-xs font-semibold bg-red-50 text-red-700 rounded-full">Rimbalzato</span>
+                                @elseif($log->esito_consegna === 'Invio Bloccato')
+                                    <span class="px-2.5 py-1 text-xs font-semibold bg-red-50 text-rose-700 rounded-full">Invio Bloccato</span>
                                 @else
-                                    <span class="px-2.5 py-1 text-xs font-semibold bg-amber-50 text-amber-700 rounded-full">{{ ucfirst($log->esito_consegna) }}</span>
+                                    <span class="px-2.5 py-1 text-xs font-semibold bg-gray-50 text-gray-700 rounded-full">{{ ucfirst($log->esito_consegna) }}</span>
                                 @endif
                             </td>
-                            <td class="py-4 px-6">
+                                                        <td class="py-4 px-6">
                                 @if($log->is_aperto)
                                     <span class="text-xs font-semibold text-blue-600">✓ Aperto</span>
                                 @else

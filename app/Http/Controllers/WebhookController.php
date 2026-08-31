@@ -12,7 +12,7 @@ class WebhookController extends Controller
     // GESTIONE DEI WEBHOOK PER LE CAMPAGNE MARKETING DI BREVO
     public function handleBrevo(Request $request)
     {
-        // 1. Log di debug per vedere esattamente cosa arriva da Brevo
+        //Log di debug per vedere esattamente cosa arriva da Brevo
         Log::info('Webhook Marketing Brevo ricevuto:', $request->all());
 
         $event = $request->input('event');
@@ -20,23 +20,44 @@ class WebhookController extends Controller
         // Usiamo date_event come standard per le campagne marketing
         $date = $request->input('date_event') ?? $request->input('date') ?? now();
 
-        if (!$email) {
-            return response()->json(['status' => 'ignored', 'message' => 'Email non presente nel payload'], 200);
+        //Recupero l'X-Mailin-custom dove ho salvato l'istanza del log del db
+        $logId = $request->input('X-Mailin-custom');
+
+        $log = null;
+
+        //Se l'X-mailin esiste
+        if ($logId) {
+            $log = LogInvio::find($logId);
         }
 
-        // Cerchiamo il log più recente associato a quell'indirizzo email
-        $log = LogInvio::where('email_destinatario', $email)->latest()->first();
+        // Fallback di sicurezza: se per qualche motivo l'ID non c'è, proviamo con l'email
+        if (!$log && $email) {
+            $log = LogInvio::where('email_destinatario', $email)->latest()->first();
+        }
 
+        //Non c'è nessun dato
         if (!$log) {
-            return response()->json(['status' => 'ignored', 'message' => 'Log non trovato per questa email'], 200);
+            return response()->json(['status' => 'ignored', 'message' => 'Log non trovato per questo ID o email'], 200);
         }
 
         // Casistiche dei webhook Marketing di Brevo
         switch ($event) {
+            case 'request':
+                $log->update([
+                    'esito_consegna' => 'Inviato',
+                ]);
+                break;
+
             case 'delivered':
                 $log->update([
-                    'esito_consegna' => 'consegnato',
+                    'esito_consegna' => 'Consegnato',
                     'consegnato_il' => $date
+                ]);
+                break;
+
+            case 'error':
+                $log->update([
+                    'esito_consegna' => 'Invio Bloccato',
                 ]);
                 break;
 
@@ -59,9 +80,9 @@ class WebhookController extends Controller
                 $log->update([
                     'esito_consegna' => 'rimbalzato'
                 ]);
-                break;  
+                break;
 
-            case 'unsubscribe':
+            case 'unsubscribed':
                 $log->update([
                     'is_disiscritto' => true,
                     'disiscritto_il' => $date

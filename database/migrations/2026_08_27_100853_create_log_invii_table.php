@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('invio_id')->constrained('invios')->onDelete('cascade');
             $table->string('email_destinatario');
             //Stato di consegna (sempre webhook)
-            $table->enum('esito_consegna', ['in_attesa', 'consegnato', 'rimbalzato', 'bloccato'])->default('in_attesa');
+            $table->enum('esito_consegna', ['In Attesa', 'Inviato', 'Consegnato', 'Rimbalzato', 'Invio Bloccato'])->default('In Attesa');
 
             //webhook avanzati per analisi
             $table->boolean('is_aperto')->default(false);
