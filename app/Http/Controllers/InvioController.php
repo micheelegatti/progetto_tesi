@@ -62,7 +62,7 @@ class InvioController extends Controller
             $logInvio = LogInvio::create([
                 'invio_id' => $invioCampagna->id,
                 'email_destinatario' => $destinatario->email,
-                'esito_consegna' => 'in_attesa',
+                'esito_consegna' => 'In Attesa',
             ]);
 
             // Passiamo campagna, invio e log al Mailable
