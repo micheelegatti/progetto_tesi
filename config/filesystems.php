@@ -64,8 +64,9 @@ return [
             'driver' => 's3',
             'key' => env('CLOUDFLARE_R2_ACCESS_KEY_ID'),
             'secret' => env('CLOUDFLARE_R2_SECRET_ACCESS_KEY'),
-            'region' => 'us-east-1', // Cloudflare richiede una regione fittizia come us-east-1
+            'region' => 'auto', // Cloudflare richiede una regione fittizia come us-east-1
             'bucket' => env('CLOUDFLARE_R2_BUCKET'),
+            'url' => env('R2_URL'),
             'endpoint' => env('CLOUDFLARE_R2_ENDPOINT'),
             'use_path_style_endpoint' => true,
             'throw' => false,

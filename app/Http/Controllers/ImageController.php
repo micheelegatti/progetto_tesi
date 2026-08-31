@@ -1,31 +1,49 @@
 <?php
 namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Models\ImageModel; // Il tuo modello per memorizzare il path nel DB
+use App\Models\Image; // <-- Usiamo il nome pulito
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
+    public function index()
+    {
+        $images = Image::latest()->get()->map(function ($img) {
+            return [
+                'id' => $img->id,
+                'url' => Storage::disk('r2')->url($img->path),
+            ];
+        });
+
+        return response()->json($images);
+    }
+
     public function store(Request $request)
     {
-        // Validazione immagine
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            //Salva il file nella cartella 'uploads' del bucket R2
             $path = $request->file('image')->store('uploads', 'r2');
+            $url = Storage::disk('r2')->url($path);
 
-            // Salvo il percorso nel database
-            ImageModel::create([
+            // Salvataggio pulito
+            Image::create([
                 'path' => $path,
-                // 'user_id' => auth()->id(), se associato all'utente
             ]);
 
-            return redirect()->back()->with('success', 'Immagine caricata con successo su Cloudflare R2!');
+            return response()->json([
+                'success' => true,
+                'url' => $url,
+                'path' => $path,
+                'message' => 'Immagine caricata con successo!'
+            ]);
         }
 
-        return redirect()->back()->with('error', 'Errore durante il caricamento.');
+        return response()->json(['success' => false, 'message' => 'Nessun file selezionato.'], 400);
     }
 }

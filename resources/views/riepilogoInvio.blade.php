@@ -41,7 +41,7 @@
             <div>
                 <div class="flex justify-between items-center mb-2">
                     <label for="sommario" class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider">
-                        Sommario Anteprima
+                        Sommario Anteprima <span class="text-red-500">*</span>
                     </label>
                     <span class="text-[10px] text-stone-400">Max 100 caratteri</span>
                 </div>
