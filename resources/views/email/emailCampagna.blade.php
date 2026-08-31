@@ -72,6 +72,13 @@
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Arial, sans-serif; width: 100% !important;">
     
+    <!-- PREHEADER NASCOSTO (Anteprima dell'email nella inbox) -->
+    @if(!empty($invioCampagna->sommario))
+        <div style="display: none; font-size: 1px; color: #f4f4f5; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; mso-line-height-rule: exactly;">
+            {{ $invioCampagna->sommario }}
+        </div>
+    @endif
+
     <!-- CENTRATURA PER EMAIL (Rimosso table-layout: fixed) -->
     <center style="width: 100%; background-color: #f4f4f5; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
         <!-- AGGIUNTO box-sizing inline esplicito per sicurezza su Outlook/client mobile -->

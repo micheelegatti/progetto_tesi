@@ -152,7 +152,7 @@ async function saveCampagna() {
     }
 }
 
-// Funzione per l'invio rapido del test
+/*Funzione per l'invio rapido del test - produzione locale
 async function inviaTestRapido() {
     if (!props.campagna?.id) return
     isSendingTest.value = true
@@ -169,7 +169,7 @@ async function inviaTestRapido() {
     } finally {
         isSendingTest.value = false
     }
-}
+}*/
 </script>
 
 <template>
@@ -188,14 +188,10 @@ async function inviaTestRapido() {
                 >
             </div>
             <div class="flex items-center gap-2">
-                <button 
-                    @click="inviaTestRapido" 
-                    :disabled="isSendingTest"
-                    class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 dark:bg-stone-800 dark:hover:bg-stone-700 dark:text-stone-300 text-sm font-medium rounded-lg transition disabled:opacity-50 border border-stone-200 dark:border-stone-700 flex items-center gap-2"
-                    title="Invia una mail di prova"
-                >
-                    <span>{{ isSendingTest ? 'Invio in corso...' : 'Invia Test' }}</span>
-                </button>
+                <a href="{{ url('dashboard/campagna/' .$campagna->id. '/riepilogo') }}" 
+                    class="inline-block bg-stone-100 hover:bg-stone-200/80 text-stone-800 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                    Invia
+                </a>
                 <!-- Pulsante di salvataggio -->
                 <button 
                     @click="saveCampagna" 
