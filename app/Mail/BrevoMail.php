@@ -23,7 +23,7 @@ class BrevoMail extends Mailable
     public function __construct(Campagna $campagna, Invio $invio, LogInvio $logInvio)
     {
         $this->campagna = $campagna;
-        $this->invioCampagna = $invioCampagna;
+        $this->invioCampagna = $invio;
         $this->logInvio = $logInvio;
     }
 
