@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LogInvio;
 use App\Models\Destinatario;
+use App\Enum\StatoIscrizione;
 use Illuminate\Support\Facades\Log;
 
 class WebhookController extends Controller
@@ -66,7 +67,7 @@ class WebhookController extends Controller
             case 'opened':
                 $log->update([
                     'is_aperto' => true,
-                    'aperto_il' => $date
+                    'aperto_il' => $log->aperto_il ?? $date
                 ]);
                 break;
 
@@ -90,7 +91,7 @@ class WebhookController extends Controller
                     'disiscritto_il' => $date
                 ]);
                 // Aggiorna lo stato del contatto nella tabella destinatari
-                Destinatario::where('email', $email)->update(['is_disiscritto' => true]);
+                Destinatario::where('email', $email)->update(['stato' => StatoIscrizione::Disiscritto]);
                 break;
 
             case 'spam':
