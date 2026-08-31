@@ -16,14 +16,14 @@ class BrevoMail extends Mailable
     use Queueable, SerializesModels;
 
     public $campagna;
-    public $invio;
+    public $invioCampagna;
     public $logInvio;
 
     // Riceviamo tutti e tre gli oggetti
     public function __construct(Campagna $campagna, Invio $invio, LogInvio $logInvio)
     {
         $this->campagna = $campagna;
-        $this->invio = $invio;
+        $this->invioCampagna = $invioCampagna;
         $this->logInvio = $logInvio;
     }
 
@@ -31,9 +31,9 @@ class BrevoMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->invio->oggetto,
-            from: $this->invio->email_mittente,
-            replyTo: $this->invio->email_risposta ? [$this->invio->email_risposta] : [],
+            subject: $this->invioCampagna->oggetto,
+            from: $this->invioCampagna->email_mittente,
+            replyTo: $this->invioCampagna->email_risposta ? [$this->invioCampagna->email_risposta] : [],
         );
     }
 
