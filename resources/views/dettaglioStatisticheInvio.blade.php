@@ -1,5 +1,17 @@
 @extends('app')
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('statistiche') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Statistiche</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Dettaglio Campagna</span>
+    </li>
+@endsection
+
 @section('content')
 <div class="max-w-7xl mx-auto space-y-6">
     

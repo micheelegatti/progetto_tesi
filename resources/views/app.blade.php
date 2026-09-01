@@ -6,22 +6,16 @@
     
     <title>{{ config('app.name', 'Softweb Mail') }}</title>
     
-    {{-- Script per la dark mode --}}
+    {{-- Script dark mode e sidebar state (invariati) --}}
     <script>
         (function() {
             const appearance = '{{ $appearance ?? "system" }}';
-
-            if (appearance === 'system') {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-                if (prefersDark) {
-                    document.documentElement.classList.add('dark');
-                }
+            if (appearance === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
             }
         })();
     </script>
 
-    {{-- Script immediato per leggere lo stato della sidebar ed evitare sfarfallii al cambio pagina --}}
     <script>
         (function() {
             if (localStorage.getItem('sidebarState') === 'collapsed') {
@@ -30,45 +24,29 @@
         })();
     </script>
 
-    {{-- Stili per il background e gestione istantanea dello stato chiuso --}}
     <style>
-        html {
-            background-color: oklch(1 0 0);
-        }
-        html.dark {
-            background-color: oklch(0.145 0 0);
-        }
-        /* Quando la classe 'sidebar-collapsed' è sul tag html, la sidebar si restringe */
-        html.sidebar-collapsed #app-sidebar {
-            width: 5rem !important; /* w-20 */
-        }
-        /* Nasconde le etichette istantaneamente senza sfarfallii */
-        html.sidebar-collapsed .sidebar-label {
-            display: none !important;
-        }
+        html { background-color: oklch(1 0 0); }
+        html.dark { background-color: oklch(0.145 0 0); }
+        html.sidebar-collapsed #app-sidebar { width: 5rem !important; }
+        html.sidebar-collapsed .sidebar-label { display: none !important; }
     </style>
 
-    {{-- Favicon e icone --}}
     <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
     @fonts
-
-    {{-- Compilazione Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col transition-colors duration-150">
+{{-- h-screen e overflow-hidden bloccano lo scroll della finestra principale --}}
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased h-screen flex flex-col overflow-hidden">
 
-    <div id="app-root" class="flex flex-col flex-1 min-h-screen">
+    <div id="app-root" class="flex flex-col h-full">
         
-        {{-- HEADER SUPERIORE --}}
-        <header class="h-16 border-b border-slate-200 bg-white/80 dark:border-slate-800 dark:bg-slate-900/50 backdrop-blur sticky top-0 z-40 flex items-center justify-between px-6">
-            <div class="flex items-center gap-2">
+        {{-- HEADER FISSO IN ALTO (Non scrolla) --}}
+        <header class="h-16 shrink-0 border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 z-40 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-2 shrink-0">
                 <img src="{{ asset('logo1.svg') }}" alt="Logo Azienda" class="h-9 w-9 object-contain">
                 <span class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Softweb<span class="text-[#722e89]">Mail</span></span>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 shrink-0">
                 <span class="text-sm font-semibold text-slate-700 dark:text-white">{{ auth()->user()->name ?? 'Utente Admin' }}</span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -80,20 +58,17 @@
             </div>
         </header>
 
-        {{-- CONTENITORE PRINCIPALE --}}
-        <div class="flex flex-1">
+        {{-- CONTENITORE SOTTO L'HEADER (Bloccato all'altezza dello schermo rimanente) --}}
+        <div class="flex flex-1 overflow-hidden h-[calc(100vh-4rem)]">
             
-            {{-- SIDEBAR --}}
+            {{-- SIDEBAR CON SCROLL INDIPENDENTE (Se il menu è lungo) --}}
             <aside id="app-sidebar" 
-                   class="w-56 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ease-in-out">
+                   class="w-56 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex h-full overflow-y-auto transition-all duration-300 ease-in-out shrink-0">
                 
-                {{-- Intestazione Sidebar con Pulsante Toggle --}}
-                <div class="flex items-center justify-between mb-4 px-1">
+                <div class="flex items-center justify-between mb-4 px-1 shrink-0">
                     <span class="sidebar-label text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider truncate">
                         Menu Principale
                     </span>
-                    
-                    {{-- Pulsante con funzione JS nativa globale --}}
                     <button onclick="toggleSidebar()" 
                             class="p-2 rounded-xl text-slate-500 hover:bg-purple-100 dark:hover:bg-slate-800 transition mx-auto"
                             title="Riduci/Espandi menu">
@@ -124,13 +99,13 @@
                 </nav>
             </aside>
 
-            {{-- ZONA CONTENUTO DINAMICO + BREADCRUMBS --}}
-            <main class="flex-1 p-6 md:p-8 overflow-y-auto">
+            {{-- ZONA CONTENUTO: È L'UNICA A SCORRERE E LA BARRA PARTE SOTTO L'HEADER --}}
+            <main class="flex-1 h-full overflow-y-auto p-6 md:p-8 bg-slate-50 dark:bg-slate-950">
                 
-                {{-- Mostra i breadcrumbs solo se la vista figlia li ha definiti --}}
+                {{-- Breadcrumbs --}}
                 @hasSection('breadcrumbs')
-                    <nav class="mb-6" aria-label="Breadcrumb">
-                        <ol class="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
+                    <nav class="mb-3" aria-label="Breadcrumb">
+                        <ol class="flex items-center space-x-2 text-xs md:text-sm text-slate-500 dark:text-slate-400">
                             @yield('breadcrumbs')
                         </ol>
                     </nav>
@@ -142,12 +117,10 @@
         </div>
     </div>
 
-    {{-- Funzione Vanilla JS globale e pulita --}}
     <script>
         function toggleSidebar() {
             const html = document.documentElement;
             html.classList.toggle('sidebar-collapsed');
-            
             const isCollapsed = html.classList.contains('sidebar-collapsed');
             localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
         }

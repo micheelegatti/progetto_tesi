@@ -1,4 +1,22 @@
-@extends('destinatari') 
+@extends('destinatari')
+
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('destinatari') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Destinatari</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <a href="{{ url('dashboard/destinatari/import') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Importa</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Contatto Singolo</span>
+    </li>
+@endsection
 
 @section('contenuto_destinatari')
 <div class="mb-6">

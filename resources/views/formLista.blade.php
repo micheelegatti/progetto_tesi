@@ -1,7 +1,25 @@
 @extends('destinatari') 
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('destinatari') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Destinatari</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <a href="{{ url('dashboard/destinatari/liste') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Liste</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Gestione</span>
+    </li>
+@endsection
+
 @section('contenuto_destinatari')
-<div class="mb-6">
+<div class="mb-4">
     <h1 class="text-xl font-bold text-slate-900 dark:text-white">
         {{ isset($lista) ? 'Modifica Lista' : 'Crea Nuova Lista' }}
     </h1>

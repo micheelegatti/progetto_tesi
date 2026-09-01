@@ -1,5 +1,17 @@
 @extends('destinatari') 
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('destinatari') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Destinatari</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Liste</span>
+    </li>
+@endsection
+
 @section('contenuto_destinatari')
 <div class="mb-6 flex justify-between items-center">
     <div>

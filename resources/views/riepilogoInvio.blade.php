@@ -1,5 +1,17 @@
 @extends('app')
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('campagna') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Campagna</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Riepilogo Invio</span>
+    </li>
+@endsection
+
 @section('content')
 <div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <div class="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl shadow-sm overflow-hidden">
