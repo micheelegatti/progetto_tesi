@@ -49,8 +49,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'delete']);
 
     //Rotta per gestione immagini con R2
-    Route::post('dashboard/immagini/store', [App\Http\Controllers\ImageController::class, 'store']);
-    Route::get('dashboard/immagini', [App\Http\Controllers\ImageController::class, 'index']);
+    Route::post('/dashboard/immagini/store', [App\Http\Controllers\ImageController::class, 'store']);
+    Route::get('/dashboard/immagini', [App\Http\Controllers\ImageController::class, 'index']);
 
     //rotte per la sezione destinatari
     //pagina contatti come landingPage
