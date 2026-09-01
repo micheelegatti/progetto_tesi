@@ -51,11 +51,17 @@
         {{-- Stato --}}
         <div class="mb-6">
             <label for="stato" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Stato</label>
+            
+            @php
+                $currentStato = old('stato', isset($destinatario) ? ($destinatario->stato->value ?? $destinatario->stato) : '');
+            @endphp
+
             <select name="stato" id="stato" required
                 class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <option value="Iscritto" {{ old('stato', $destinatario->stato ?? '') == 'Iscritto' ? 'selected' : '' }}>Iscritto</option>
-                <option value="Disiscritto" {{ old('stato', $destinatario->stato ?? '') == 'Disiscritto' ? 'selected' : '' }}>Disiscritto</option>
+                <option value="Iscritto" {{ $currentStato == 'Iscritto' ? 'selected' : '' }}>Iscritto</option>
+                <option value="Disiscritto" {{ $currentStato == 'Disiscritto' ? 'selected' : '' }}>Disiscritto</option>
             </select>
+            
             @error('stato')
                 <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
             @enderror
