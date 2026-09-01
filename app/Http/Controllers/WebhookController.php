@@ -13,7 +13,15 @@ class WebhookController extends Controller
     // GESTIONE DEI WEBHOOK PER LE CAMPAGNE MARKETING DI BREVO
     public function handleBrevo(Request $request)
     {
-        //Log di debug per vedere esattamente cosa arriva da Brevo
+        //Verifica l'Header segreto con il token inviato da Brevo
+        $secretHeader = $request->header('Webhook-Authentication');
+        $expectedSecret = config('services.brevo.webhook_secret');
+
+        if (!$secretHeader || !hash_equals($expectedSecret, $secretHeader)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // Log di debug per vedere esattamente cosa arriva da Brevo
         Log::info('Webhook Marketing Brevo ricevuto:', $request->all());
 
         $event = $request->input('event');
@@ -21,12 +29,12 @@ class WebhookController extends Controller
         // Usiamo date_event come standard per le campagne marketing
         $date = $request->input('date_event') ?? $request->input('date') ?? now();
 
-        //Recupero l'X-Mailin-custom dove ho salvato l'istanza del log del db
+        // Recupero l'X-Mailin-custom dove ho salvato l'istanza del log del db
         $logId = $request->input('X-Mailin-custom');
 
         $log = null;
 
-        //Se l'X-mailin esiste
+        // Se l'X-mailin esiste
         if ($logId) {
             $log = LogInvio::find($logId);
         }
@@ -36,7 +44,7 @@ class WebhookController extends Controller
             $log = LogInvio::where('email_destinatario', $email)->latest()->first();
         }
 
-        //Non c'è nessun dato
+        // Non c'è nessun dato
         if (!$log) {
             return response()->json(['status' => 'ignored', 'message' => 'Log non trovato per questo ID o email'], 200);
         }
@@ -52,11 +60,6 @@ class WebhookController extends Controller
                 break;
 
             case 'error':
-                $log->update([
-                    'esito_consegna' => 'Invio Bloccato',
-                ]);
-                break;
-
             case 'blocked':
                 $log->update([
                     'esito_consegna' => 'Invio Bloccato',
