@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //SOVRASCRIVIAMO IL LOGIN: Forza Laravel a mostrare la vista Blade invece di Inertia
@@ -12,6 +13,15 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
+//logout
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+
+    // Invalida la sessione e rigenera il token per sicurezza
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('login'); 
+})->name('logout');
 
 // ROTTE PRIVATE
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -26,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'getCampagna']);
     Route::put('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'update']);
     Route::delete('dashboard/campagna/{id}', [App\Http\Controllers\CampagnaController::class, 'delete']);
+    //Rotta per test funzionante con MailPit
     Route::get('dashboard/campagna/{id}/invia-test', [App\Http\Controllers\CampagnaController::class, 'inviaTest']);
 
 
@@ -36,6 +47,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/template/{id}/modifica', [App\Http\Controllers\TemplateController::class, 'edit']);
     Route::put('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'update']);
     Route::delete('dashboard/template/{id}', [App\Http\Controllers\TemplateController::class, 'delete']);
+
+    //Rotta per gestione immagini con R2
+    Route::post('/dashboard/immagini/store', [App\Http\Controllers\ImageController::class, 'store']);
+    Route::get('/dashboard/immagini', [App\Http\Controllers\ImageController::class, 'index']);
 
     //rotte per la sezione destinatari
     //pagina contatti come landingPage
@@ -62,6 +77,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/destinatari/liste/{id}/edit', [App\Http\Controllers\ListaController::class, 'edit']);
     Route::put('dashboard/destinatari/liste/{id}', [App\Http\Controllers\ListaController::class, 'update']);
     Route::delete('dashboard/destinatari/liste/{id}', [App\Http\Controllers\ListaController::class, 'delete']);
+
+    //Rotte per Invio
+    //Ordinario
+    Route::get('dashboard/campagna/{id}/riepilogo', [App\Http\Controllers\InvioController::class, 'index']);
+    Route::post('dashboard/campagna/invio', [App\Http\Controllers\InvioController::class, 'store']);
+
+    //Rotte per le statistiche - StatisticheController
+    Route::get('dashboard/statistiche', [App\Http\Controllers\StatisticheController::class, 'index'])->name('statistiche');
+    Route::get('dashboard/statistiche/{id}', [App\Http\Controllers\StatisticheController::class, 'statisticheInvio']);
+
+    //Rotte per ricezione webhook
+    //Route::post('/webhooks/brevo', [App\Http\Controllers\WebhookController::class, 'handleBrevo']);
 });
 
 require __DIR__.'/settings.php';

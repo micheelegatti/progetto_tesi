@@ -18,7 +18,6 @@
             })();
         </script>
 
-        {{-- Colori di sfondo nativi del tuo tema --}}
         <style>
             html { background-color: oklch(1 0 0); }
             html.dark { background-color: oklch(0.145 0 0); }
@@ -38,10 +37,10 @@
         <div class="max-w-md w-full space-y-8 bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg border border-gray-100 dark:border-zinc-700">
             <div>
                 <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-                    Accedi al tuo account
+                    Accedi a SoftwebMail
                 </h2>
                 <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-                    Gestionale Tesi
+                    Sistema di newsletter per la tesi di Michele Gatti
                 </p>
             </div>
 
@@ -64,13 +63,13 @@
                     <div>
                         <label for="email" class="sr-only">Email</label>
                         <input id="email" name="email" type="email" value="{{ old('email') }}" BelongsTo required autofocus
-                            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-zinc-600 placeholder-gray-500 text-gray-900 dark:text-white bg-white dark:bg-zinc-700 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-zinc-600 placeholder-gray-500 text-gray-900 dark:text-white bg-white dark:bg-zinc-700 rounded-t-md focus:outline-none focus:ring-[#722e89] focus:border-[#722e89] focus:z-10 sm:text-sm" 
                             placeholder="Indirizzo Email">
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
                         <input id="password" name="password" type="password" required 
-                            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-zinc-600 placeholder-gray-500 text-gray-900 dark:text-white bg-white dark:bg-zinc-700 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 dark:border-zinc-600 placeholder-gray-500 text-gray-900 dark:text-white bg-white dark:bg-zinc-700 rounded-b-md focus:outline-none focus:ring-[#722e89] focus:border-[#722e89] focus:z-10 sm:text-sm" 
                             placeholder="Password">
                     </div>
                 </div>
@@ -85,7 +84,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    <button type="submit" class="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#722e89] hover:bg-[#5e2272]  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                         Accedi
                     </button>
                 </div>

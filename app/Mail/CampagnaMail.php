@@ -11,6 +11,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Campagna;
 
+//Temporaneo per Mailpit
 class CampagnaMail extends Mailable
 {
     use Queueable, SerializesModels;

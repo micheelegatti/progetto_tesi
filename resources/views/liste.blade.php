@@ -1,5 +1,17 @@
 @extends('destinatari') 
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('destinatari') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Destinatari</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Liste</span>
+    </li>
+@endsection
+
 @section('contenuto_destinatari')
 <div class="mb-6 flex justify-between items-center">
     <div>
@@ -8,7 +20,7 @@
     </div>
     
     {{-- Bottone per creare una nuova lista --}}
-    <a href="{{ url('dashboard/destinatari/liste/crea') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+    <a href="{{ url('dashboard/destinatari/liste/crea') }}" class="bg-[#722e89] hover:bg-[#5e2272] text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
         + Crea Nuova Lista
     </a>
 </div>

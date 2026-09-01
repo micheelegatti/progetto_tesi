@@ -1,5 +1,17 @@
 @extends('destinatari')
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('destinatari') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Destinatari</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Contatti</span>
+    </li>
+@endsection
+
 @section('contenuto_destinatari')
 
     {{-- Form di Filtro per Email e Stato --}}
@@ -25,7 +37,7 @@
         </div>
 
         <div class="flex gap-2">
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-lg text-sm font-medium transition shadow-sm">
+            <button type="submit" class="bg-[#722e89] hover:bg-[#5e2272] text-white px-4 py-1.5 rounded-lg text-sm font-medium transition shadow-sm">
                 Filtra
             </button>
             <a href="{{ url('dashboard/destinatari/contatti') }}" class="px-4 py-1.5 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">

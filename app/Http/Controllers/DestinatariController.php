@@ -134,7 +134,7 @@ class DestinatariController extends Controller
     {
         $request->validate([
             'csv_file' => 'required|file|extensions:csv',
-            'lista_id' => 'nullable|exists:liste,id',
+            'lista_id' => 'nullable|exists:listes,id',
             'nuova_lista_nome' => 'nullable|string|max:255',
         ]);
 

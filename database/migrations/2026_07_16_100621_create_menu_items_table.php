@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('route');
+            $table->text('icon')->nullable();
             $table->timestamps();
         });
     }

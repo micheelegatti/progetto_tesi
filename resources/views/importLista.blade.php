@@ -1,5 +1,23 @@
 @extends('destinatari')
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('destinatari') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Destinatari</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <a href="{{ url('dashboard/destinatari/import') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Importa</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Lista Contatti</span>
+    </li>
+@endsection
+
 @section('contenuto_destinatari')
 <div class="max-w-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
     <div class="mb-6">
@@ -9,12 +27,11 @@
 
     <form action="{{ url('dashboard/destinatari/import/lista') }}" method="POST" enctype="multipart/form-data">
         @csrf
-
         {{-- Selezione File CSV --}}
         <div class="mb-4">
             <label for="csv_file" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Seleziona File CSV</label>
             <input type="file" name="csv_file" id="csv_file" accept=".csv, text/csv" required
-                class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-indigo-950 dark:file:text-indigo-300 cursor-pointer">
+                class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#f3e8f7] file:text-[#722e89] hover:file:bg-[#e7d1ef] dark:file:bg-[#2a1033] dark:file:text-[#e2bcf0] cursor-pointer">
             @error('csv_file')
                 <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
             @enderror
@@ -47,7 +64,7 @@
             <a href="{{ url('dashboard/destinatari/contatti') }}" class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
                 Annulla
             </a>
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
+            <button type="submit" class="bg-[#722e89] hover:bg-[#5e2272] text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">
                 Avvia Importazione
             </button>
         </div>

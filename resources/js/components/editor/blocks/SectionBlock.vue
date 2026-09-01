@@ -9,7 +9,10 @@ import ImageBlock   from '@/components/editor/blocks/ImageBlock.vue'
 import ButtonBlock  from '@/components/editor/blocks/ButtonBlock.vue'
 import DividerBlock from '@/components/editor/blocks/DividerBlock.vue'
 import HTMLBlock from '@/components/editor/blocks/HTMLBlock.vue'
-import ContainerBlock from './ContainerBlock.vue' 
+import ContainerBlock     from '@/components/editor/blocks/ContainerBlock.vue'
+import SectionBlock    from '@/components/editor/blocks/SectionBlock.vue'
+import HeaderBlock   from '@/components/editor/blocks/HeaderBlock.vue'
+import FooterBlock      from '@/components/editor/blocks/FooterBlock.vue'
 
 const props = defineProps<{
     block: Block
@@ -34,7 +37,10 @@ const componentMap: Record<string, any> = {
     button:    ButtonBlock,
     divider:   DividerBlock,
     html:      HTMLBlock,
-    container: ContainerBlock 
+    container: ContainerBlock, 
+    section:   SectionBlock,
+    header:    HeaderBlock,
+    footer:    FooterBlock
 }
 
 const children = computed({
@@ -65,7 +71,7 @@ function onDrop(e: DragEvent) {
     }
 
     // Whitelist dei tipi ammessi dalla Sidebar
-    const validTypes = ['container', 'title', 'text', 'image', 'button', 'divider', 'html']
+    const validTypes = ['container', 'section', 'footer', 'header', 'title', 'text', 'image', 'button', 'divider', 'html']
     if (!validTypes.includes(type)) {
         return
     }
@@ -80,6 +86,7 @@ function onDrop(e: DragEvent) {
         data-container
         :style="{
             minHeight: block.style?.minHeight + 'vh',
+            backgroundColor: block.style?.backgroundColor,
 
             borderRadius: block.style?.border?.radius + 'px',
             borderWidth: block.style?.border?.width + 'px',
@@ -125,7 +132,7 @@ function onDrop(e: DragEvent) {
             <div
                 v-for="child in children"
                 :key="child.id"
-                class="relative group border rounded-lg bg-white transition"
+                class="relative group border bg-white transition"
                 :class="[
                     selectedId === child.id 
                         ? 'border-blue-500 ring-1 ring-blue-500 cursor-pointer' 

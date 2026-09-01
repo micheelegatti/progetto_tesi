@@ -1,5 +1,17 @@
 @extends('app')
 
+@section('breadcrumbs')
+    <li>
+        <a href="{{ route('campagna') }}" class="hover:text-[#722e89] dark:hover:text-purple-300 transition">Campagna</a>
+    </li>
+    <li>
+        <span class="text-slate-300 dark:text-slate-600">/</span>
+    </li>
+    <li>
+        <span class="font-semibold text-slate-800 dark:text-slate-200">Creazione</span>
+    </li>
+@endsection
+
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6">
     
@@ -50,11 +62,9 @@
             >
                 Annulla
             </a>
-            
-            {{-- 👇 2. Il bottone resta semplicemente di tipo submit per inviare il form --}}
             <button 
                 type="submit" 
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition"
+                class="px-4 py-2 bg-[#722e89] hover:bg-[#5e2272] text-white text-sm font-semibold rounded-lg shadow-sm transition"
             >
                 Salva e Procedi all'Editor
             </button>

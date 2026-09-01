@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Block } from '@/types/block'
-import { autoResetRef } from '@vueuse/core';
 defineProps<{ block: Block }>()
 </script>
 

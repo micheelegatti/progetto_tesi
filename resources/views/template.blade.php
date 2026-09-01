@@ -9,7 +9,7 @@
             <h1 class="text-2xl font-bold text-stone-900">I Miei Template</h1>
             <p class="text-sm text-stone-500">Gestisci i modelli grafici per le tue email</p>
         </div>
-        <a href="/dashboard/template/crea" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition">
+        <a href="/dashboard/template/crea" class="bg-[#722e89] hover:bg-[#5e2272] text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition">
             Nuovo Template
         </a>
     </div>

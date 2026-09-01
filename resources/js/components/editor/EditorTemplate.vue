@@ -17,6 +17,7 @@ const props = defineProps<{
 // Nome del template (passato in modifica o default)
 const templateName = ref(props.initialTemplateName ?? 'Nuovo Template Email')
 const isSaving = ref(false)
+const currentTemplateId = ref<number | null>(props.templateId ?? null)
 
 //Id per i miei blocchi fissi del template(Header, Content e Footer)
 const HEADER_ID = 111111
@@ -165,14 +166,16 @@ function deleteBlock(id: number) {
 
 // Funzione di salvataggio via Axios verso Laravel
 async function saveTemplate() {
-    console.log('VALORE TEMPLATE ID:', props.templateId);
     isSaving.value = true
     try {
-        //Se sono in modifica (ho un ID) faccio un PUT, altrimenti un POST 
-        const url = props.templateId 
-            ? '/dashboard/template/' + props.templateId 
-            : '/dashboard/template'
-        const method = props.templateId ? 'put' : 'post'
+        // Se currentTemplateId è vuoto è un NUOVO template (POST), altrimenti è una MODIFICA (PUT)
+        const isNew = !currentTemplateId.value
+        
+        const url = isNew 
+            ? '/dashboard/template' 
+            : '/dashboard/template/' + currentTemplateId.value
+            
+        const method = isNew ? 'post' : 'put'
 
         const response = await axios({
             method: method,
@@ -184,7 +187,18 @@ async function saveTemplate() {
         })
 
         console.log('Template salvato con successo!', response.data)
+
+        // SE ERA UN NUOVO TEMPLATE, SALVIAMO L'ID RICEVUTO DAL SERVER
+        if (isNew && response.data.template?.id) {
+            currentTemplateId.value = response.data.template.id
+            
+            // TRUCCO PRO (Opzionale): Aggiorna l'URL del browser senza ricaricare la pagina, 
+            // così se l'utente fa F5 non perde il contesto e rimane sulla modifica di quel template
+            window.history.replaceState({}, '', `/dashboard/template/${currentTemplateId.value}/edit`)
+        }
+
         alert('Template salvato correttamente!')
+
     } catch (error) {
         console.error('Errore durante il salvataggio:', error)
         alert('Errore durante il salvataggio del template.')
@@ -216,7 +230,7 @@ async function saveTemplate() {
             <button 
                 @click="saveTemplate" 
                 :disabled="isSaving"
-                class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition disabled:opacity-50 shadow-sm flex items-center gap-2"
+                class="px-5 py-2 bg-[#722e89] hover:bg-[#5e2272] text-white text-sm font-medium rounded-lg transition disabled:opacity-50 shadow-sm flex items-center gap-2"
             >
                 <span>{{ isSaving ? 'Salvataggio...' : 'Salva Template' }}</span>
             </button>
