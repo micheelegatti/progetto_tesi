@@ -124,8 +124,18 @@
                 </nav>
             </aside>
 
-            {{-- ZONA CONTENUTO DINAMICO --}}
+            {{-- ZONA CONTENUTO DINAMICO + BREADCRUMBS --}}
             <main class="flex-1 p-6 md:p-8 overflow-y-auto">
+                
+                {{-- Mostra i breadcrumbs solo se la vista figlia li ha definiti --}}
+                @hasSection('breadcrumbs')
+                    <nav class="mb-6" aria-label="Breadcrumb">
+                        <ol class="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
+                            @yield('breadcrumbs')
+                        </ol>
+                    </nav>
+                @endif
+
                 @yield('content')
             </main>
 
