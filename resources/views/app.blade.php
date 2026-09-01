@@ -21,14 +21,29 @@
         })();
     </script>
 
-    {{-- Stili per il background (Prevengono i flash bianchi al caricamento) --}}
+    {{-- Script immediato per leggere lo stato della sidebar ed evitare sfarfallii al caricamento/cambio pagina --}}
+    <script>
+        (function() {
+            if (localStorage.getItem('sidebarState') === 'collapsed') {
+                document.documentElement.classList.add('sidebar-is-collapsed');
+            }
+        })();
+    </script>
+
+    {{-- Stili per il background e per applicare subito lo stato chiuso se memorizzato --}}
     <style>
         html {
             background-color: oklch(1 0 0);
         }
-
         html.dark {
             background-color: oklch(0.145 0 0);
+        }
+        /* Gestione istantanea dello stato salvato prima che Alpine parta */
+        html.sidebar-is-collapsed #app-sidebar {
+            width: 5rem !important; /* w-20 */
+        }
+        html.sidebar-is-collapsed .sidebar-label {
+            display: none !important;
         }
     </style>
 
@@ -37,15 +52,13 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    {{-- Direttiva font dello Starter Kit --}}
     @fonts
 
-    {{-- Compilazione Vite: Carica gli stili globali e il tuo inizializzatore Vue --}}
+    {{-- Compilazione Vite (Assicurati di aver incluso Alpine in resources/js/app.ts) --}}
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col transition-colors duration-150">
 
-    {{-- CORPO DELL'APPLICAZIONE VUE: Tutto quello che c'è qui dentro supporta Vue e PrimeVue --}}
     <div id="app-root" class="flex flex-col flex-1 min-h-screen">
         
         {{-- HEADER SUPERIORE --}}
@@ -56,7 +69,6 @@
             </div>
             <div class="flex items-center gap-4">
                 <span class="text-sm font-semibold text-slate-700 dark:text-white">{{ auth()->user()->name ?? 'Utente Admin' }}</span>
-                {{-- Form  --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" 
@@ -67,26 +79,56 @@
             </div>
         </header>
 
-        {{-- CONTENITORE PRINCIPALE (SIDEBAR + CONTENUTO) --}}
-        <div class="flex flex-1">
+        {{-- CONTENITORE PRINCIPALE GESTITO CON ALPINE.JS (x-data) --}}
+        <div class="flex flex-1" x-data="{ 
+            collapsed: localStorage.getItem('sidebarState') === 'collapsed',
+            toggle() {
+                this.collapsed = !this.collapsed;
+                localStorage.setItem('sidebarState', this.collapsed ? 'collapsed' : 'expanded');
+                // Rimuove la classe temporanea html se l'utente apre il menu
+                if(!this.collapsed) {
+                    document.documentElement.classList.remove('sidebar-is-collapsed');
+                }
+            }
+        }">
             
-            {{-- SIDEBAR DI NAVIGAZIONE --}}
-            <aside class="w-64 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-                <nav class="space-y-1">
-                    <p class="px-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Menu Principale</p>
+            {{-- SIDEBAR STILE GEMINI CON LARGHESSA DINAMICA (:class) --}}
+            <aside id="app-sidebar" 
+                   :class="collapsed ? 'w-20' : 'w-56'" 
+                   class="border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ease-in-out">
+                
+                {{-- Intestazione Sidebar con Pulsante Toggle --}}
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <span x-show="!collapsed" class="sidebar-label text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider truncate">
+                        Menu Principale
+                    </span>
                     
+                    {{-- Pulsante reattivo (@click) --}}
+                    <button @click="toggle()" 
+                            class="p-2 rounded-xl text-slate-500 hover:bg-purple-100 dark:hover:bg-slate-800 transition mx-auto"
+                            title="Riduci/Espandi menu">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
+                <nav class="space-y-1.5">
                     @if(isset($menuItems))
                         @foreach($menuItems as $item)
                             <a href="{{ route($item->route) }}" 
-                            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-150 
-                            {{ Route::is($item->route) ? 'bg-slate-200/80 text-slate-900 dark:bg-slate-800/80 dark:text-white' : 'text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-white' }}">
+                               class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-150 
+                               {{ Route::is($item->route) ? 'bg-[#f3e8f7] text-[#722e89] dark:bg-purple-950/40 dark:text-purple-200' : 'text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-white' }}"
+                               title="{{ $item->title }}">
                                 
-                                {{-- Icona dinamica associata alla voce di menu --}}
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item->icon }}" />
                                 </svg>
 
-                                {{ $item->title }}
+                                {{-- Il testo sparisce e appare magicamente grazie a x-show --}}
+                                <span x-show="!collapsed" class="sidebar-label whitespace-nowrap overflow-hidden transition-opacity duration-200">
+                                    {{ $item->title }}
+                                </span>
                             </a>
                         @endforeach
                     @endif
