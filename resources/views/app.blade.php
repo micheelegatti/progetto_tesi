@@ -83,7 +83,7 @@
         {{-- CONTENITORE PRINCIPALE --}}
         <div class="flex flex-1">
             
-            {{-- SIDEBAR STILE GEMINI --}}
+            {{-- SIDEBAR --}}
             <aside id="app-sidebar" 
                    class="w-56 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ease-in-out">
                 
