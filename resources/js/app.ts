@@ -8,8 +8,6 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import ToastService from 'primevue/toastservice';
 
-import Alpine from 'alpinejs';
-
 // Import componenti Vue
 import EditorTemplate from './components/editor/EditorTemplate.vue';
 import CanvasEditorTemplate from './components/editor/CanvasEditorTemplate.vue';
@@ -52,9 +50,6 @@ import Column from 'primevue/column';
 if (typeof window !== 'undefined') {
     initializeTheme();
     initializeFlashToast();
-
-    window.Alpine = Alpine;
-    Alpine.start();
 }
 
 //Creazione, dichiarazione e mount componenti
