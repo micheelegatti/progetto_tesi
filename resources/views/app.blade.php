@@ -21,16 +21,16 @@
         })();
     </script>
 
-    {{-- Script immediato per leggere lo stato della sidebar ed evitare sfarfallii al caricamento/cambio pagina --}}
+    {{-- Script immediato per leggere lo stato della sidebar ed evitare sfarfallii al cambio pagina --}}
     <script>
         (function() {
             if (localStorage.getItem('sidebarState') === 'collapsed') {
-                document.documentElement.classList.add('sidebar-is-collapsed');
+                document.documentElement.classList.add('sidebar-collapsed');
             }
         })();
     </script>
 
-    {{-- Stili per il background e per applicare subito lo stato chiuso se memorizzato --}}
+    {{-- Stili per il background e gestione istantanea dello stato chiuso --}}
     <style>
         html {
             background-color: oklch(1 0 0);
@@ -38,23 +38,24 @@
         html.dark {
             background-color: oklch(0.145 0 0);
         }
-        /* Gestione istantanea dello stato salvato prima che Alpine parta */
-        html.sidebar-is-collapsed #app-sidebar {
+        /* Quando la classe 'sidebar-collapsed' è sul tag html, la sidebar si restringe */
+        html.sidebar-collapsed #app-sidebar {
             width: 5rem !important; /* w-20 */
         }
-        html.sidebar-is-collapsed .sidebar-label {
+        /* Nasconde le etichette istantaneamente senza sfarfallii */
+        html.sidebar-collapsed .sidebar-label {
             display: none !important;
         }
     </style>
 
-    {{-- Favicon e icone dello Starter Kit --}}
+    {{-- Favicon e icone --}}
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     @fonts
 
-    {{-- Compilazione Vite (Assicurati di aver incluso Alpine in resources/js/app.ts) --}}
+    {{-- Compilazione Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col transition-colors duration-150">
@@ -79,32 +80,21 @@
             </div>
         </header>
 
-        {{-- CONTENITORE PRINCIPALE GESTITO CON ALPINE.JS (x-data) --}}
-        <div class="flex flex-1" x-data="{ 
-            collapsed: localStorage.getItem('sidebarState') === 'collapsed',
-            toggle() {
-                this.collapsed = !this.collapsed;
-                localStorage.setItem('sidebarState', this.collapsed ? 'collapsed' : 'expanded');
-                // Rimuove la classe temporanea html se l'utente apre il menu
-                if(!this.collapsed) {
-                    document.documentElement.classList.remove('sidebar-is-collapsed');
-                }
-            }
-        }">
+        {{-- CONTENITORE PRINCIPALE --}}
+        <div class="flex flex-1">
             
-            {{-- SIDEBAR STILE GEMINI CON LARGHESSA DINAMICA (:class) --}}
+            {{-- SIDEBAR STILE GEMINI --}}
             <aside id="app-sidebar" 
-                   :class="collapsed ? 'w-20' : 'w-56'" 
-                   class="border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ease-in-out">
+                   class="w-56 border-r border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30 flex flex-col p-4 hidden md:flex sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ease-in-out">
                 
                 {{-- Intestazione Sidebar con Pulsante Toggle --}}
                 <div class="flex items-center justify-between mb-4 px-1">
-                    <span x-show="!collapsed" class="sidebar-label text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider truncate">
+                    <span class="sidebar-label text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider truncate">
                         Menu Principale
                     </span>
                     
-                    {{-- Pulsante reattivo (@click) --}}
-                    <button @click="toggle()" 
+                    {{-- Pulsante con funzione JS nativa globale --}}
+                    <button onclick="toggleSidebar()" 
                             class="p-2 rounded-xl text-slate-500 hover:bg-purple-100 dark:hover:bg-slate-800 transition mx-auto"
                             title="Riduci/Espandi menu">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -125,8 +115,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item->icon }}" />
                                 </svg>
 
-                                {{-- Il testo sparisce e appare magicamente grazie a x-show --}}
-                                <span x-show="!collapsed" class="sidebar-label whitespace-nowrap overflow-hidden transition-opacity duration-200">
+                                <span class="sidebar-label whitespace-nowrap overflow-hidden transition-opacity duration-200">
                                     {{ $item->title }}
                                 </span>
                             </a>
@@ -143,5 +132,15 @@
         </div>
     </div>
 
+    {{-- Funzione Vanilla JS globale e pulita --}}
+    <script>
+        function toggleSidebar() {
+            const html = document.documentElement;
+            html.classList.toggle('sidebar-collapsed');
+            
+            const isCollapsed = html.classList.contains('sidebar-collapsed');
+            localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+        }
+    </script>
 </body>
 </html>
