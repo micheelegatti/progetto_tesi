@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Image; // <-- Usiamo il nome pulito
+use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
@@ -24,7 +24,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
         ]);
 
         if ($request->hasFile('image')) {

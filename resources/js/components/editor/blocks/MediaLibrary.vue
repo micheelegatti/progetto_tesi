@@ -16,7 +16,7 @@ watch(() => props.visible, async (newVal) => {
     if (newVal) {
         loading.value = true
         try {
-            const response = await axios.get('/dashboard/immagini')
+            const response = await axios.get('dashboard/immagini')
             images.value = response.data
         } catch (error) {
             console.error('Errore nel recupero della libreria media:', error)

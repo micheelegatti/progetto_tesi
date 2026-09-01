@@ -22,7 +22,7 @@ const uploadImage = async (event: Event) => {
 
     uploading.value = true
     try {
-        const response = await axios.post('/dashboard/immagini/store', formData, {
+        const response = await axios.post('dashboard/immagini/store', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         
