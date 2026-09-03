@@ -41,3 +41,6 @@ Il servizio di Mailpit con le email di prova invece è su http://localhost:8025/
 Utente admin generato tramite Seed del database \
 Username: admin@test \
 Password: password123 
+
+Il progetto è caricato sul server dell'azienda, con le stesse password è accessibile a:
+https://tesimichele.softweb.srl/login
